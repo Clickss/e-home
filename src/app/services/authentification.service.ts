@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
+
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+};
 
 @Injectable()
 export class AuthenticationService {
@@ -14,14 +21,14 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let headers = new Headers({ 'Content-Type': 'text/plain' }); // ... Set content type to JSON
         headers.append('Accept', 'application/json');
         headers.append('Access-Control-Allow-Methods', '*');
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Access-Control-Allow-Headers', "*");
         console.log("headers1: value" + JSON.stringify(headers));
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('http://localhost:8000/api/auth', JSON.stringify({ username: username, password: password }), options)
+        return this.http.post('http://localhost:8888/MIAGE/e-home-api/public/api/auth', JSON.stringify({ username: username, password: password }), options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
