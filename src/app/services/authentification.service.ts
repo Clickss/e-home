@@ -16,9 +16,9 @@ export class AuthenticationService {
     login(username: string, password: string): Observable<boolean> {
         let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         headers.append('Accept', 'application/json');
-        headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
-        headers.append('Access-Control-Allow-Origin', 'http://localhost:4503');
-        headers.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
+        headers.append('Access-Control-Allow-Methods', '*');
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Access-Control-Allow-Headers', "*");
         console.log("headers1: value" + JSON.stringify(headers));
         let options = new RequestOptions({ headers: headers });
         return this.http.post('http://localhost:8000/api/auth', JSON.stringify({ username: username, password: password }), options)
