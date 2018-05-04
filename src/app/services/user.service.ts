@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
  
 import { AuthenticationService } from '../services/authentification.service';
 import { User } from '../models/user';
+
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+};
  
 @Injectable()
 export class UserService {
     constructor(
-        private http: Http,
+        private http: HttpClient,
         private authenticationService: AuthenticationService) {
     }
  
-    getUsers(): Observable<User[]> {
+    getUser(): Observable<User> {
         // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
- 
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+
         // get users from api
-        return this.http.get('/api/users', options)
-            .map((response: Response) => response.json());
+        return this.http.get<User>('http://localhost:8000/api/utilisateurs/'+u.id, httpOptions);
     }
 }

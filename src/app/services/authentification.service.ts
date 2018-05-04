@@ -20,15 +20,16 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
-    login(username: string, password: string): Observable<boolean> {
+    login(mail: string, mdp: string): Observable<boolean> {
+
         let headers = new Headers({ 'Content-Type': 'text/plain' }); // ... Set content type to JSON
         headers.append('Accept', 'application/json');
         headers.append('Access-Control-Allow-Methods', '*');
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Access-Control-Allow-Headers', "*");
-        console.log("headers1: value" + JSON.stringify(headers));
+
         let options = new RequestOptions({ headers: headers });
-        return this.http.post('http://localhost:8888/MIAGE/e-home-api/public/api/auth', JSON.stringify({ username: username, password: password }), options)
+        return this.http.post('http://localhost:8000/api/auth', JSON.stringify({ mail: mail, mdp: mdp }), options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
@@ -37,7 +38,7 @@ export class AuthenticationService {
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({ id: response.json().id, mail: mail, token: token }));
 
                     // return true to indicate successful login
                     return true;
