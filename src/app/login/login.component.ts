@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentification.service';
 
 @Component({
+    selector: 'ap-login',
     moduleId: module.id,
     templateUrl: 'login.component.html'
 })
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.mail, this.model.mdp)
             .subscribe(result => {
                 if (result === true) {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/home']);
                 } else {
                     this.error = 'Username or password is incorrect';
                     this.loading = false;
