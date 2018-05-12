@@ -4,12 +4,13 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 
 @Component({
-    moduleId: module.id,
+    selector: 'ap-home',
     templateUrl: 'home.component.html'
 })
 
 export class HomeComponent implements OnInit {
-    usr: User;
+    prenom: string;
+    nom: string;
 
     constructor(private userService: UserService) { }
 
@@ -17,8 +18,8 @@ export class HomeComponent implements OnInit {
         // get users from secure api end point
         this.userService.getUser()
             .subscribe(user => {
-                this.usr.nom = user.nom,
-                this.usr.prenom = user.prenom
+                this.nom = user.nom,
+                this.prenom = user.prenom
             });
     }
 
