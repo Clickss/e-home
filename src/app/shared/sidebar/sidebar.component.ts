@@ -8,13 +8,24 @@ declare var $: any;
 import { Maison } from '../../models/maison';
 import { MaisonService } from '../../services/maison.service';
 
+import { Etage } from '../../models/etage';
+import { EtageService } from '../../services/etage.service';
+
+import { Piece } from '../../models/piece';
+import { PieceService } from '../../services/piece.service';
+
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+
 @Component({
   selector: 'ap-sidebar',
   templateUrl: './sidebar.component.html'
   
 })
 export class SidebarComponent implements OnInit {
-	
+
+    prenom: string;
+    nom: string;    
     
     showMenu: string = '';
     showSubMenu: string = '';
@@ -38,15 +49,44 @@ export class SidebarComponent implements OnInit {
     }
     
     constructor(private modalService: NgbModal, private router: Router,
-        private route: ActivatedRoute, private maisonService: MaisonService) {} 
+        private route: ActivatedRoute, private maisonService: MaisonService,
+        private userService: UserService, private etageService: EtageService,
+        private pieceService: PieceService) {} 
     
     links_maisons: RouteInfo[] = [];
+    links_etages: RouteInfo[] = [];
+    links_pieces: RouteInfo[] = [];
 
     ngOnInit() {
+        // get users from secure api end point
+        this.userService.getUser()
+            .subscribe(user => {
+                this.nom = user.nom,
+                this.prenom = user.prenom
+            });
+            
         this.maisonService.getMaisons()
             .subscribe(maisons => {
                 maisons.forEach(maison => {
-                   this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-gauge', class: '', label: '', labelClass: '', extralink: false, submenu: [] }) 
+                    
+                    this.etageService.getEtages(maison.id)
+                        .subscribe(etages => {
+                            etages.forEach(etage => {
+                                
+                                this.pieceService.getPieces(maison.id, etage.id)
+                                    .subscribe(pieces => {
+                                        pieces.forEach(piece => {
+                                            this.links_pieces.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id+'/pieces/'+piece.id, title: piece.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [] });
+                                        });
+                                    });
+                                
+                                this.links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: this.links_pieces });
+                                //this.links_piece = [];
+                            });
+                        });
+                    
+                    this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: this.links_etages });
+                    
                 });
             });
         

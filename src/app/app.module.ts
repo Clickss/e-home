@@ -28,8 +28,12 @@ import { AuthGuard } from './_guards/auth_guard';
 import { AuthenticationService } from './services/authentification.service';
 import { UserService } from './services/user.service';
 import { MaisonService } from './services/maison.service';
+import { EtageService } from './services/etage.service';
+import { PieceService } from './services/piece.service';
 import { HomeComponent } from './home/home.component';
 import { MaisonComponent } from './maison/maison.component';
+import { EtageComponent } from './etage/etage.component';
+import { PieceComponent } from './piece/piece.component';
 
 
 
@@ -50,7 +54,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     LoginComponent,
     HomeComponent,
-    MaisonComponent
+    MaisonComponent,
+    EtageComponent,
+    PieceComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +73,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AuthGuard,
     AuthenticationService,
     UserService,
+    EtageService,
+    PieceService,
     MaisonService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

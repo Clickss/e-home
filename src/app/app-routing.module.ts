@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth_guard';
 import { MaisonComponent } from './maison/maison.component';
+import { EtageComponent } from './etage/etage.component';
 
 export const Approutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ export const Approutes: Routes = [
             { path: 'component', loadChildren: './component/component.module#ComponentsModule' },
             { path: 'home', component: HomeComponent },
             { path: 'maisons/:id', component: MaisonComponent },
+            { path: 'etages/:id', component: EtageComponent },
         ],
         canActivate: [AuthGuard]
     },
