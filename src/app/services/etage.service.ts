@@ -31,7 +31,6 @@ export class EtageService {
 
         // get users from api
         return this.http.get<Etage[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages', httpOptions);
-        //return this.http.get<Etage[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/1/etages', httpOptions);
     }
 
     getEtage(id_etage: string): Observable<Etage> {

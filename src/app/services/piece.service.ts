@@ -41,7 +41,7 @@ export class PieceService {
         let u = JSON.parse(localStorage.getItem("currentUser"));
 
         // get users from api
-        //return this.http.get<Maison>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/pieces/'+id_piece, httpOptions);
-        return this.http.get<Maison>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/1/pieces/'+id_piece, httpOptions);
+        //return this.http.get<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece, httpOptions);
+        return this.http.get<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/1/etages/1/pieces/'+id_piece, httpOptions);
     }
 }
