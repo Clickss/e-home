@@ -1,3 +1,30 @@
-<p>
-  Maison : {{maison.nom}}
-</p>
+<div class="row">
+  <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"> 
+          <h4 class="m-b-0"><span class="lstick"></span>{{maison.nom | uppercase}}</h4>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let etage of maison.etages">
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion" is-open="true">
+              <ngb-panel title="{{etage.nom}}">
+                <ng-template ngbPanelContent>
+                  <div *ngFor="let piece of etage.pieces">
+                    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
+                      <ngb-panel title="{{piece.nom}}">
+                        <ng-template ngbPanelContent>
+                          <div *ngFor="let objet of piece.objets">
+                            {{objet.nom}}
+                          </div>
+                        </ng-template>
+                      </ngb-panel>
+                    </ngb-accordion>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

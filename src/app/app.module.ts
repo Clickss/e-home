@@ -34,6 +34,7 @@ import { HomeComponent } from './home/home.component';
 import { MaisonComponent } from './maison/maison.component';
 import { EtageComponent } from './etage/etage.component';
 import { PieceComponent } from './piece/piece.component';
+import { ObjetService } from './services/objet.service';
 
 
 
@@ -76,6 +77,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EtageService,
     PieceService,
     MaisonService,
+    ObjetService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
