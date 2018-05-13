@@ -81,12 +81,12 @@ export class SidebarComponent implements OnInit {
                                     });
                                 
                                 this.links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: this.links_pieces });
-                                //this.links_piece = [];
+                                //this.links_pieces = [];
                             });
                         });
                     
                     this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: this.links_etages });
-                    
+                    //this.links_pieces = [];
                 });
             });
         

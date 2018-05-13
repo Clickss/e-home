@@ -16,6 +16,7 @@
           </ul>  
         </li>
         <li class="nav-devider"></li>
+        Mes logements
         <!-- First level menu -->
         <li [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems" [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'" >
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
