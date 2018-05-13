@@ -54,8 +54,6 @@ export class SidebarComponent implements OnInit {
         private pieceService: PieceService) {} 
     
     links_maisons: RouteInfo[] = [];
-    links_etages: RouteInfo[] = [];
-    links_pieces: RouteInfo[] = [];
 
     ngOnInit() {
         // get users from secure api end point
@@ -68,25 +66,29 @@ export class SidebarComponent implements OnInit {
         this.maisonService.getMaisons()
             .subscribe(maisons => {
                 maisons.forEach(maison => {
+                
+                    // Variable locale pour quelle soit vide à chaque boucle, donc pas de "this"
+                    let links_etages: RouteInfo[] = [];
                     
                     this.etageService.getEtages(maison.id)
                         .subscribe(etages => {
                             etages.forEach(etage => {
                                 
+                                // Variable locale pour quelle soit vide à chaque boucle, donc pas de "this"
+                                let links_pieces: RouteInfo[] = [];
+                                
                                 this.pieceService.getPieces(maison.id, etage.id)
                                     .subscribe(pieces => {
                                         pieces.forEach(piece => {
-                                            this.links_pieces.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id+'/pieces/'+piece.id, title: piece.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [] });
+                                            links_pieces.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id+'/pieces/'+piece.id, title: piece.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [] });
                                         });
                                     });
                                 
-                                this.links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: this.links_pieces });
-                                //this.links_pieces = [];
+                                links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: links_pieces });
                             });
                         });
                     
-                    this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: this.links_etages });
-                    //this.links_pieces = [];
+                    this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: links_etages });
                 });
             });
         
