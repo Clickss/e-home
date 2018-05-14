@@ -8,6 +8,8 @@ import { AuthenticationService } from '../services/authentification.service';
 import { User } from '../models/user';
 import { Maison } from '../models/maison';
 import { Etage } from '../models/etage';
+import { Objet } from '../models/objet';
+import { ObjetPiece } from '../models/objetpiece';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -16,21 +18,20 @@ const httpOptions = {
 };
  
 @Injectable()
-export class EtageService {
+export class ObjetService {
     constructor(
         private http: HttpClient,
         private authenticationService: AuthenticationService) {
     }
  
-    getEtages(id_maison: string): Observable<Etage[]> {
+    getObjets(id_maison: string, id_etage: string, id_piece: string): Observable<ObjetPiece[]> {
         // add authorization header with jwt token
         let headers = new Headers();
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
 
         let u = JSON.parse(localStorage.getItem("currentUser"));
 
-        // get users from api
-        return this.http.get<Etage[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages', httpOptions);
+        return this.http.get<ObjetPiece[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets', httpOptions);
     }
 
     getEtage(id_etage: string): Observable<Etage> {

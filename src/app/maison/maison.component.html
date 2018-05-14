@@ -1,3 +1,45 @@
-<p>
-  Maison : {{maison.nom}}
-</p>
+<div class="row">
+  <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"> 
+          <h4 class="m-b-0"><span class="lstick"></span>{{maison.nom | uppercase}}</h4>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let etage of maison.etages">
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
+              <ngb-panel title="{{etage.nom}}" id="ngb-panel-0">
+                <ng-template ngbPanelContent>
+                  <div *ngFor="let piece of etage.pieces">
+                    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
+                      <ngb-panel title="{{piece.nom}}" id="ngb-panel-0">
+                        <ng-template ngbPanelContent>
+                          <div class="row">
+                            <div *ngFor="let objetpiece of piece.objetpiece" class="col-sm-6 col-md-4">
+                              <div class="card card-outline-inverse">
+                                  <div class="card-header">
+                                    <div class="m-b-0 text-white">
+                                      {{objetpiece.objet.nom}}
+                                      <div class="card-actions">
+                                          <a class="btn-minimize"><i class="ti-pencil-alt2"></i></a>
+                                          <a class="btn-close" (click)="deleteObjet(objetpiece.id)"><i class="ti-trash"></i></a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="card-body">
+                                      
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ngb-panel>
+                    </ngb-accordion>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
