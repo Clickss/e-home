@@ -40,8 +40,8 @@ export class MaisonComponent implements OnInit {
               etages.forEach(etage => {
                 this.pieceService.getPieces(maison.id, etage.id).subscribe(pieces => {
                   pieces.forEach(piece => {
-                    this.objetService.getObjets(maison.id, etage.id, piece.id).subscribe(objets => {
-                      piece.objets = objets
+                    this.objetService.getObjets(maison.id, etage.id, piece.id).subscribe(objetsPieces => {
+                      piece.objetpiece = objetsPieces
                     })
                   })
                   etage.pieces = pieces
@@ -52,7 +52,7 @@ export class MaisonComponent implements OnInit {
         });
   }
   
-  getEtage(id: string){
-    console.log(id)
+  deleteObjet(id_objetpiece: string): void{
+    console.log("SUPPRESSION :" + id_objetpiece)
   }
 }

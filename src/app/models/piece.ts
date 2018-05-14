@@ -1,9 +1,9 @@
-import { Objet } from "./objet";
+import { ObjetPiece } from "./objetpiece";
 
 export class Piece {
     id: string;
     nom: string;
-    objets: Objet[];
+    objetpiece: ObjetPiece[];
 
     constructor(id?: string, nom?: string){
 

@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { Maison } from '../models/maison';
 import { Etage } from '../models/etage';
 import { Objet } from '../models/objet';
+import { ObjetPiece } from '../models/objetpiece';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -23,14 +24,14 @@ export class ObjetService {
         private authenticationService: AuthenticationService) {
     }
  
-    getObjets(id_maison: string, id_etage: string, id_piece: string): Observable<Objet[]> {
+    getObjets(id_maison: string, id_etage: string, id_piece: string): Observable<ObjetPiece[]> {
         // add authorization header with jwt token
         let headers = new Headers();
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
 
         let u = JSON.parse(localStorage.getItem("currentUser"));
 
-        return this.http.get<Objet[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets', httpOptions);
+        return this.http.get<ObjetPiece[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets', httpOptions);
     }
 
     getEtage(id_etage: string): Observable<Etage> {
