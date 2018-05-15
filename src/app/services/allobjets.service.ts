@@ -7,7 +7,9 @@ import 'rxjs/add/operator/map'
 import { AuthenticationService } from '../services/authentification.service';
 import { User } from '../models/user';
 import { Maison } from '../models/maison';
-import { Piece } from '../models/piece';
+import { Etage } from '../models/etage';
+import { Objet } from '../models/objet';
+import { ObjetPiece } from '../models/objetpiece';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -16,32 +18,27 @@ const httpOptions = {
 };
  
 @Injectable()
-export class PieceService {
+export class AllObjetService {
     constructor(
         private http: HttpClient,
         private authenticationService: AuthenticationService) {
     }
  
-    getPieces(id_maison: string, id_etage: string): Observable<Piece[]> {
+    getAllObjets(): Observable<Objet[]> {
         // add authorization header with jwt token
         let headers = new Headers();
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
 
         let u = JSON.parse(localStorage.getItem("currentUser"));
 
-        // get users from api
-        return this.http.get<Piece[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces', httpOptions);
+        return this.http.get<Objet[]>('http://localhost:8000/api/objets', httpOptions);
     }
 
-    getPiece(id_maison: string, id_etage: string, id_piece: string): Observable<Piece> {
+    getOneObjet(id: string): Observable<Objet> {
         // add authorization header with jwt token
         let headers = new Headers();
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
 
-        let u = JSON.parse(localStorage.getItem("currentUser"));
-
-        // get users from api
-        //return this.http.get<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece, httpOptions);
-        return this.http.get<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece, httpOptions);
+        return this.http.get<Objet>('http://localhost:8000/api/objets/'+id, httpOptions);
     }
 }

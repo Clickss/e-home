@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
@@ -35,6 +35,8 @@ import { MaisonComponent } from './maison/maison.component';
 import { EtageComponent } from './etage/etage.component';
 import { PieceComponent } from './piece/piece.component';
 import { ObjetService } from './services/objet.service';
+import { AllObjetService } from './services/allobjets.service';
+import { AddobjetComponent } from './objet/add/addobjet.component';
 
 
 
@@ -57,13 +59,18 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HomeComponent,
     MaisonComponent,
     EtageComponent,
-    PieceComponent
+    PieceComponent,
+    AddobjetComponent
+  ],
+  entryComponents: [
+    AddobjetComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,   
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
     NgbModule.forRoot(),
@@ -78,6 +85,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PieceService,
     MaisonService,
     ObjetService,
+    AllObjetService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

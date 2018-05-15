@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">Ajouter un objet à la pièce : {{piece.nom}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="objetForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row">
+        <div *ngFor="let o of objets" class="col-sm-4 col-md-3">
+          <div class="card card-outline-inverse">
+              <div class="card-header">
+                <div class="m-b-0 text-white text-center">
+                  {{o.nom}}
+                  <img src="{{o.image}}" class="img-fluid" />
+                </div>
+              </div>
+              <div class="card-body text-center">
+                <input type="radio" formControlName="s_objet" value="{{o.id}}" />
+              </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="objetForm.pristine" class="btn btn-outline-dark">Enregistrer</button>
+    </form>
+  </div>
