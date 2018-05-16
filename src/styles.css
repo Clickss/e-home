@@ -2,6 +2,21 @@
 
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
+.database-plus {
+    display: inline-block;
+}
+
+.database-plus:hover {
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.input-objet {
+    font-size: 8px;
+    width: 150px;
+}
+
 .ps .ps__scrollbar-y-rail {
     left: 3px;
     right: auto;

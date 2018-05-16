@@ -46,4 +46,18 @@ export class MaisonService {
         // get users from api
         return this.http.get<Maison>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison, httpOptions);
     }
+            
+    putMaison(nom_maison: string): Observable<Maison> {
+        if (nom_maison == "") return;
+        
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        let maison = new Maison();
+        maison.nom = nom_maison;
+        
+        return this.http.post<Maison>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons', maison, httpOptions);
+    }
 }

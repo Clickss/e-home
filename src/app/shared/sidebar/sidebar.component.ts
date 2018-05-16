@@ -84,14 +84,14 @@ export class SidebarComponent implements OnInit {
                                         });
                                     });
                                 
-                                links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: links_pieces });
+                                links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: links_pieces, id: etage.id });
                             });
                         });
                     
-                    this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: links_etages });
+                    this.links_maisons.push({ path: '/maisons/'+maison.id, title: maison.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: links_etages, id: maison.id });
                 });
             });
-        
+                
         this.sidebarnavItems = this.links_maisons//ROUTES.filter(sidebarnavItem => sidebarnavItem);
         $(function () {
             $(".sidebartoggler").on('click', function() {
@@ -108,4 +108,22 @@ export class SidebarComponent implements OnInit {
         });
         
     }
+  
+  putMaison(nom_maison: string): void {
+      this.maisonService.putMaison(nom_maison).subscribe(data => {
+        this.ngOnInit();
+    });
+  }
+  
+  putEtage(id_maison: string, nom_etage: string): void {
+      this.etageService.putEtage(id_maison, nom_etage).subscribe(data => {
+        this.ngOnInit();
+    });
+  }
+  
+  putPiece(id_maison: string, id_etage: string, nom_piece: string): void {
+      this.pieceService.putPiece(id_maison, id_etage, nom_piece).subscribe(data => {
+        this.ngOnInit();
+    });
+  }
 }

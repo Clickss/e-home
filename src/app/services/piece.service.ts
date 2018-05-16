@@ -44,4 +44,18 @@ export class PieceService {
         //return this.http.get<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece, httpOptions);
         return this.http.get<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece, httpOptions);
     }
+            
+    putPiece(id_maison: string, id_etage: string, nom_piece: string): Observable<Piece> {
+        if (nom_piece == "") return;
+        
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        let piece = new Piece();
+        piece.nom = nom_piece;
+        
+        return this.http.post<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces', piece, httpOptions);
+    }
 }

@@ -27,14 +27,14 @@
                 </span>    
             </a>
             <!-- Second level menu -->
-            <ul class="collapse" *ngIf="sidebarnavItem.submenu.length > 0" [ngClass]="{'in' : showMenu === sidebarnavItem.title }">
+            <ul class="collapse" *ngIf="sidebarnavItem.submenu.length > -1" [ngClass]="{'in' : showMenu === sidebarnavItem.title }">
                 <li *ngFor="let sidebarnavSubItem of sidebarnavItem.submenu" [class.active]="showSubMenu === sidebarnavSubItem.title" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'active'">
                     <a [routerLink]="sidebarnavSubItem.submenu.length > 0 ? null : [sidebarnavSubItem.path]" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'router-link-active'" [ngClass]="[sidebarnavSubItem.class]"  *ngIf="!sidebarnavSubItem.extralink;" (click)="addActiveClass(sidebarnavSubItem.title)">
                         <i [ngClass]="[sidebarnavSubItem.icon]"></i>
                         {{sidebarnavSubItem.title}}
                     </a>
                     <!-- Third level menu -->
-                    <ul class="collapse" *ngIf="sidebarnavSubItem.submenu.length > 0" [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.title }">
+                    <ul class="collapse" *ngIf="sidebarnavSubItem.submenu.length > -1" [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.title }">
                         <li *ngFor="let sidebarnavSubsubItem of sidebarnavSubItem.submenu" routerLinkActive="active" [ngClass]="[sidebarnavSubsubItem.class]">
                             <a [routerLink]="[sidebarnavSubsubItem.path]" *ngIf="!sidebarnavSubsubItem.extralink;" [routerLinkActive]="sidebarnavSubsubItem.submenu.length > 0 ? '' : 'router-link-active'">
                                 <i [ngClass]="[sidebarnavSubsubItem.icon]"></i>
@@ -42,12 +42,20 @@
                             </a>
                         </li>
                         
-        <input type="text" />
+                        <li>
+                            <input class="input-objet" type="text" #newPiece newPiece.value="" placeholder="nom de la pièce" />
+                            <i class="mdi mdi-key-plus database-plus" ng-reflect-ng-class="mdi mdi-key-plus" (click)="putPiece(sidebarnavItem.id, sidebarnavSubItem.id, newPiece.value)"></i>
+                        </li>
                     </ul>
                 </li>
-        <input type="text" />
+                
+                <li>
+                    <input class="input-objet" type="text" #newEtage newEtage.value="" placeholder="nom d'étage" />
+                    <i class="mdi mdi-database-plus database-plus" ng-reflect-ng-class="mdi mdi-database-plus" (click)="putEtage(sidebarnavItem.id, newEtage.value)"></i>
+                </li>
             </ul>
         </li>
-        <input type="text" />
+        <input class="input-objet" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
+        <i class="mdi mdi-account-plus database-plus" ng-reflect-ng-class="mdi mdi-account-plus" (click)="putMaison(newMaison.value)"></i>
     </ul>
 </nav> 
