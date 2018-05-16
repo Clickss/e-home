@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap, NavigationEnd, Event } from '@angular/router';
 import { MaisonService } from '../services/maison.service';
 import { switchMap } from 'rxjs/operator/switchMap';
@@ -8,6 +8,9 @@ import 'rxjs/add/operator/switchMap';
 import { EtageService } from '../services/etage.service';
 import { PieceService } from '../services/piece.service';
 import { ObjetService } from '../services/objet.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddobjetComponent } from '../objet/add/addobjet.component';
+
 
 @Component({
   selector: 'app-maison',
@@ -23,6 +26,7 @@ export class MaisonComponent implements OnInit {
     private etageService: EtageService, 
     private pieceService: PieceService,
     private objetService: ObjetService,
+    private modalService: NgbModal
   ) {
     this.ngOnInit();
   }
@@ -30,8 +34,6 @@ export class MaisonComponent implements OnInit {
   maison: Maison = {id:null, nom:null, etages: []};
 
   ngOnInit(){
-    let id = this.route.snapshot.paramMap.get('id');
-
     this.route.paramMap
         .switchMap(params => this.maisonService.getMaison(params.get('id')))
         .subscribe(maison => {
@@ -54,5 +56,13 @@ export class MaisonComponent implements OnInit {
   
   deleteObjet(id_objetpiece: string): void{
     console.log("SUPPRESSION :" + id_objetpiece)
+  }
+
+  addObjetPiece(id_maison: string, id_etage: string, id_piece: string): void {
+    console.log("PIECE : "+id_piece);
+    const modalRef = this.modalService.open(AddobjetComponent, { size: 'lg' });
+    modalRef.componentInstance.id_maison = id_maison
+    modalRef.componentInstance.id_etage = id_etage
+    modalRef.componentInstance.id_piece = id_piece
   }
 }
