@@ -18,7 +18,7 @@ export class PieceComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
 
-    this.pieceService.getPiece(id).subscribe(piece => { this.piece$ = piece.nom });
+    //this.pieceService.getPiece(id).subscribe(piece => { this.piece$ = piece.nom });
 
     console.log("lol")
   }
