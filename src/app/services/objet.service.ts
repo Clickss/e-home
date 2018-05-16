@@ -3,7 +3,6 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
-import { catchError, retry } from 'rxjs/operators';
  
 import { AuthenticationService } from '../services/authentification.service';
 import { User } from '../models/user';
@@ -47,19 +46,28 @@ export class ObjetService {
         return this.http.get<Etage>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/1/etages/'+id_etage, httpOptions);
     }
 
-    addObjetService(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece): Observable<ObjetPiece>{
+    addObjetPiece(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece): Observable<ObjetPiece>{
         // add authorization header with jwt token
         let headers = new Headers();
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
         
         let u = JSON.parse(localStorage.getItem("currentUser"));
-        console.log(objetPiece)
+        
         return this
             .http
-            .post<ObjetPiece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets', objetPiece, httpOptions)
-            .pipe(
-                catchError(this.handleError)
-            );
+            .post<ObjetPiece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets', objetPiece, httpOptions);
+    }
+    
+    deleteObjetPiece(id_maison: string, id_etage: string, id_piece: string, id_objetpiece: string){
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        
+        return this
+            .http
+            .delete('http://localhost:8000/api/utilisateurs/' + u.id + '/maisons/' + id_maison + '/etages/' + id_etage + '/pieces/' + id_piece + '/objets/' + id_objetpiece, httpOptions)
     }
 
     prepareSaveObjetPiece(objetPiece: ObjetPiece): ObjetPiece{
@@ -67,19 +75,5 @@ export class ObjetService {
         const saveObjetPiece: ObjetPiece = objetPiece
     
         return saveObjetPiece;
-    }
-
-    private handleError(error: HttpErrorResponse)
-    {
-        debugger;
-        console.error(error);
-        let errorMessage = '';
-        if(error.error instanceof Error){
-            errorMessage = `An error occured: ${error.error.message}`;
-        } else {
-            errorMessage = `Server returned code: ${error.status}, error message is: ${error.message}`;
-        }
-        console.error(errorMessage);
-        return Observable.throw(errorMessage);
     }
 }

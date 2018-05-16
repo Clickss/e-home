@@ -51,6 +51,11 @@ export class AddobjetComponent implements OnInit {
         });
   }
 
+  dismiss()
+  {
+    this.modalService.close();
+  }
+
   onSubmit()
   {
     const formModel = this.objetForm.value;
@@ -62,7 +67,7 @@ export class AddobjetComponent implements OnInit {
       }
 
       this.new_objetPiece = this.objetPieceService.prepareSaveObjetPiece(objetPiece);
-      this.objetPieceService.addObjetService(this.id_maison, this.id_etage, this.id_piece, this.new_objetPiece).subscribe(
+      this.objetPieceService.addObjetPiece(this.id_maison, this.id_etage, this.id_piece, this.new_objetPiece).subscribe(
         data => {
           this.modalService.close()
         }

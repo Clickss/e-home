@@ -54,12 +54,13 @@ export class MaisonComponent implements OnInit {
         });
   }
   
-  deleteObjet(id_objetpiece: string): void{
-    console.log("SUPPRESSION :" + id_objetpiece)
+  deleteObjet(id_maison: string, id_etage: string, id_piece: string, id_objetpiece: string): void{
+      this.objetService.deleteObjetPiece(id_maison, id_etage, id_piece, id_objetpiece).subscribe(data => {
+        this.ngOnInit();
+    });
   }
 
   addObjetPiece(id_maison: string, id_etage: string, id_piece: string): void {
-    console.log("PIECE : "+id_piece);
     const modalRef = this.modalService.open(AddobjetComponent, { size: 'lg' });
     modalRef.componentInstance.id_maison = id_maison
     modalRef.componentInstance.id_etage = id_etage
