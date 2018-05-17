@@ -2,6 +2,16 @@
 
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('assets/scss/icons/font-awesome/fonts/ubuntu-light-webfont.woff') format('woff'), url('assets/scss/icons/font-awesome/fonts/ubuntu-light-webfont.ttf') format('truetype');
+    
+}
+
+html, body {
+    font-family: 'Ubuntu' !important;
+}
+
 .database-plus {
     display: inline-block;
 }
@@ -13,7 +23,7 @@
 }
 
 .input-objet {
-    font-size: 8px;
+    font-size: 10px;
     width: 150px;
 }
 
