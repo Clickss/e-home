@@ -33,6 +33,7 @@ export class MaisonComponent implements OnInit {
   }
 
   maison: Maison = {id:null, nom:null, etages: []};
+  slider: number;
 
   ngOnInit(){
     this.route.paramMap
@@ -74,5 +75,19 @@ export class MaisonComponent implements OnInit {
     modalRef.componentInstance.id_maison = id_maison
     modalRef.componentInstance.id_etage = id_etage
     modalRef.componentInstance.id_piece = id_piece
+  }
+
+  inputSliderChange(value) {
+    this.slider = value.target.value;
+  }
+
+  onSliderChange(value)
+  {
+    console.log(value.target.value);
+  }
+
+  onChangeEtat(value)
+  {
+    console.log(value);
   }
 }

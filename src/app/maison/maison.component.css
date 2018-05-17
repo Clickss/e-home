@@ -60,7 +60,6 @@ input:checked + .slider:before {
 
 
 input {
-    transform: rotate(-90deg);
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -72,7 +71,6 @@ input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100%;
   min-height: 50px;
   overflow: hidden;
 }
