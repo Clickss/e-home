@@ -10,6 +10,7 @@ import { PieceService } from '../services/piece.service';
 import { ObjetService } from '../services/objet.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddobjetComponent } from '../objet/add/addobjet.component';
+import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
 
 
 @Component({
@@ -55,9 +56,17 @@ export class MaisonComponent implements OnInit {
   }
   
   deleteObjet(id_maison: string, id_etage: string, id_piece: string, id_objetpiece: string): void{
-      this.objetService.deleteObjetPiece(id_maison, id_etage, id_piece, id_objetpiece).subscribe(data => {
-        this.ngOnInit();
-    });
+      const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
+      modalRef.componentInstance.titre = "Confirmer la suppression de cet objet ?";
+      modalRef.componentInstance.texte = "Êtes-vous sûr de vouloir supprimer cet objet de votre pièce ?";
+      modalRef.result.then(res => {
+          if(res == true)
+          {
+            this.objetService.deleteObjetPiece(id_maison, id_etage, id_piece, id_objetpiece).subscribe(data => {
+                this.ngOnInit();
+            });
+          }
+      });
   }
 
   addObjetPiece(id_maison: string, id_etage: string, id_piece: string): void {

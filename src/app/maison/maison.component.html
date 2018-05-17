@@ -14,34 +14,44 @@
                       <ngb-panel title="{{piece.nom}}" id="ngb-panel-0">
                         <ng-template ngbPanelContent>
                           <div class="row">
-                            <div *ngFor="let objetpiece of piece.objetpiece" class="col-sm-6 col-md-4">
-                              <div class="card card-outline-inverse">
+                            <div class="card-columns">
+                              <div *ngFor="let objetpiece of piece.objetpiece" class="card card-outline-inverse">
                                   <div class="card-header">
                                     <div class="m-b-0 text-white">
                                       {{objetpiece.objet.nom}}
                                       <div class="card-actions">
                                           <a class="btn-minimize"><i class="ti-pencil-alt2"></i></a>
-                                          <a class="btn-close" (click)="deleteObjet(objetpiece.id)"><i class="ti-trash"></i></a>
+                                          <a class="btn-close" (click)="deleteObjet(maison.id, etage.id, piece.id, objetpiece.id)"><i class="ti-trash"></i></a>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="card-body">
-                                    <div class="col-sm-3">
-                                      <img src="{{objetpiece.objet.image}}" class="img-fluid" />
-                                    </div>
+                                      <div class="row">
+                                            <div class="col-4">
+                                              <img src="{{objetpiece.objet.image}}" class="img-fluid" />
+                                            </div>
+                                                <div class="col" *ngIf="objetpiece.objet.attribut_objet.slider">
+                                                    <input type="range"  min="0" max="150" value="60"/>
+                                                </div>
+                                                <div class="col" *ngIf="objetpiece.objet.attribut_objet.etat" class="text-center">
+                                                    <p>État</p>
+                                                    <label class="switch">
+                                                        <input type="checkbox" [attr.checked]="objetpiece.valeurs_objet.val_etat ? 'checked' : null">
+                                                        <span class="slider rounds"></span>
+                                                    </label>
+                                                </div>
+                                      </div>
                                   </div>
                               </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
                               <div class="card bg-light-inverse">
-                                <a class="btn" (click)="addObjetPiece(maison.id, etage.id, piece.id)">
                                   <div class="card-body text-center font-weight-bold">
+                                <a class="btn" (click)="addObjetPiece(maison.id, etage.id, piece.id)">
                                     <h3 class="card-title">Ajouter un objet</h3>
                                     <div class="fa-5x">
                                       <i class="fa fa-plus-circle"></i>
                                     </div>
-                                  </div>
                                 </a>
+                                  </div>
                               </div>
                             </div>
                           </div>

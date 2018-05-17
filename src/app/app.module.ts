@@ -37,6 +37,7 @@ import { PieceComponent } from './piece/piece.component';
 import { ObjetService } from './services/objet.service';
 import { AllObjetService } from './services/allobjets.service';
 import { AddobjetComponent } from './objet/add/addobjet.component';
+import { ConfirmationComponent } from './modals/confirmation/confirmation.component';
 
 
 
@@ -60,10 +61,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MaisonComponent,
     EtageComponent,
     PieceComponent,
-    AddobjetComponent
+    AddobjetComponent,
+    ConfirmationComponent
   ],
   entryComponents: [
-    AddobjetComponent
+    AddobjetComponent,
+    ConfirmationComponent
   ],
   imports: [
     CommonModule,

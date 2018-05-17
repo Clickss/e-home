@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{titre}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{texte}}
+  </div>
+<div class="modal-footer">
+    <button class="btn waves-effect waves-light btn-secondary" (click)="close(true)">Oui</button>
+    <button class="btn waves-effect waves-light btn-secondary" (click)="close(false)">Non</button>
+</div>
