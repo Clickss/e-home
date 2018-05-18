@@ -14,7 +14,7 @@
                       <ngb-panel title="{{piece.nom}}" id="ngb-panel-0">
                         <ng-template ngbPanelContent>
                           <div class="row">
-                            <div *ngFor="let objetpiece of piece.objetpiece" class="card border-dark card-outline-inverse col-sm-6 col-md-4">
+                            <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card border-dark card-outline-inverse col-sm-6 col-md-4">
                                 <div class="card-header">
                                   <div class="m-b-0 text-white">
                                     {{objetpiece.objet.nom}}
@@ -32,13 +32,13 @@
                                     <div class="col" *ngIf="objetpiece.objet.attribut_objet.etat" class="text-center">
                                         <p>État</p>
                                         <label class="switch">
-                                            <input type="checkbox" [attr.checked]="objetpiece.valeurs_objet.val_etat ? 'checked' : null" (click)="onChangeEtat(th)">
+                                            <input type="checkbox" [checked]="objetpiece.valeurs_objet.val_etat ? 'checked' : null"  (change)="onChangeEtat(maison.id, etage.id, piece.id, objetpiece, $event)">
                                             <span class="slider rounds"></span>
                                         </label>
                                         <div *ngIf="objetpiece.objet.attribut_objet.slider">
                                           <p>{{objetpiece.objet.attribut_objet.slider.lib_slider}}</p>
-                                          <input type="range" min="{{objetpiece.objet.attribut_objet.slider.min_slider}}" max="{{objetpiece.objet.attribut_objet.slider.max_slider}}" value="{{objetpiece.valeurs_objet.val_slider}}" (input)="inputSliderChange($event)" (change)="onSliderChange($event)"/>
-                                          <p class="lead">{{slider ? slider : objetpiece.valeurs_objet.val_slider}}{{objetpiece.objet.attribut_objet.slider.unite_slider}}</p>
+                                          <input type="range" min="{{objetpiece.objet.attribut_objet.slider.min_slider}}" max="{{objetpiece.objet.attribut_objet.slider.max_slider}}" [(ngModel)]="slider[i]" (change)="onSliderChange(maison.id, etage.id, piece.id, objetpiece, $event, i)"/>
+                                          <p class="lead">{{slider[i] ? slider[i] : objetpiece.valeurs_objet.val_slider}}{{objetpiece.objet.attribut_objet.slider.unite_slider}}</p>
                                         </div>
                                     </div>
                                   </div>

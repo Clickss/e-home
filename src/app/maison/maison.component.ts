@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, ParamMap, NavigationEnd, Event } from '@angular
 import { MaisonService } from '../services/maison.service';
 import { switchMap } from 'rxjs/operator/switchMap';
 import { Maison } from '../models/maison';
+import { ObjetPiece } from '../models/objetpiece';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { EtageService } from '../services/etage.service';
@@ -33,7 +34,7 @@ export class MaisonComponent implements OnInit {
   }
 
   maison: Maison = {id:null, nom:null, etages: []};
-  slider: number;
+  slider: number[] = [];
 
   ngOnInit(){
     this.route.paramMap
@@ -77,17 +78,23 @@ export class MaisonComponent implements OnInit {
     modalRef.componentInstance.id_piece = id_piece
   }
 
-  inputSliderChange(value) {
-    this.slider = value.target.value;
+  onSliderChange(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece, value, idx:number)
+  {
+      let val_slider = value.target.value;
+      this.slider[idx] = val_slider;
+      objetPiece.valeurs_objet.val_slider = val_slider;
+      this.objetService.updateObjetPiece(id_maison, id_etage, id_piece, objetPiece).subscribe(objetPiece => {
+          
+      });
   }
 
-  onSliderChange(value)
+  onChangeEtat(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece, value)
   {
-    console.log(value.target.value);
-  }
+      let val_etat = value.target.checked;
 
-  onChangeEtat(value)
-  {
-    console.log(value);
+      objetPiece.valeurs_objet.val_etat = val_etat;
+      this.objetService.updateObjetPiece(id_maison, id_etage, id_piece, objetPiece).subscribe(objetPiece => {
+          
+      });
   }
 }

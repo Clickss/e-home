@@ -46,6 +46,18 @@ export class ObjetService {
             .post<ObjetPiece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets', objetPiece, httpOptions);
     }
     
+    updateObjetPiece(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece): Observable<ObjetPiece> {
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        
+        return this
+            .http
+            .post<ObjetPiece>('http://localhost:8000/api/utilisateurs/' + u.id + '/maisons/' + id_maison + '/etages/' + id_etage + '/pieces/' + id_piece + '/objets/' + objetPiece.id, objetPiece, httpOptions);
+    }
+    
     deleteObjetPiece(id_maison: string, id_etage: string, id_piece: string, id_objetpiece: string){
         // add authorization header with jwt token
         let headers = new Headers();
