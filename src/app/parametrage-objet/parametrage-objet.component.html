@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <h4 class="modal-title">Programmation de l'objet : {{objetPiece.objet.nom}} dans la pièce : {{objetPiece.piece.nom}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="objetPieceForm" class="form-material" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row">
+        <div class="col-sm-4 col-md-3">
+          <div class="card card-outline-inverse">
+              <div class="card-header">
+                <div class="m-b-0 text-white text-center">
+                  {{objetPiece.objet.nom}}
+                  <img src="{{objetPiece.objet.image}}" class="img-fluid" />
+                </div>
+              </div>
+          </div>
+        </div>
+          <div class='col-sm-8 col-md-9'>
+              <div *ngIf="objetPiece.objet.attribut_objet.etat" class="text-center">
+                <p>État</p>
+                <label class="switch">
+                    <input type="checkbox" [checked]="objetPiece.valeurs_objet.val_etat ? 'checked' : null">
+                    <span class="slider rounds"></span>
+                </label>
+                <div *ngIf="objetPiece.objet.attribut_objet.slider">
+                  <p>{{objetPiece.objet.attribut_objet.slider.lib_slider}}</p>
+                  <input type="range" min="{{objetPiece.objet.attribut_objet.slider.min_slider}}" max="{{objetPiece.objet.attribut_objet.slider.max_slider}}"  (input)="onSliderChange($event)"/>
+                  <p class="lead">{{slider ? slider : objetPiece.valeurs_objet.val_slider}}{{objetPiece.objet.attribut_objet.slider.unite_slider}}</p>
+                </div>
+                <div class="row">
+                    <div class='col'>
+                        <p>Heure</p>
+                        <input class='form-control' type='time' />
+                    </div>
+                    <div class='col'>
+                        <p>Jours</p>
+                        <select class='form-control' multiple>
+                            <option>Lundi</option>
+                            <option>Mardi</option>
+                            <option>Mercredi</option>
+                            <option>Jeudi</option>
+                            <option>Vendredi</option>
+                            <option>Samedi</option>
+                            <option>Dimanche</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+        <div class="text-center mb-3 mt-3">
+            <button type="submit" [disabled]="objetPieceForm.pristine" class="btn btn-outline-dark">Enregistrer</button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-12">
+            <div *ngFor="let parametre of parametres" class="card bg-info">
+                <div class="card-body">
+                    <p>État {{ parametre.val_etat ? parametre.objet_piece.objet.attribut_objet.etat.lib_etat_oui : parametre.objet_piece.objet.attribut_objet.etat.lib_etat_non}} à {{parametre.heure}} le(s) {{parametre.jour}}</p>
+                    <p *ngIf="parametre.objet_piece.objet.attribut_objet.slider">{{parametre.objet_piece.objet.attribut_objet.slider.lib_slider}} : {{parametre.val_slider}}{{parametre.objet_piece.objet.attribut_objet.slider.unite_slider}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

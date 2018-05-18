@@ -12,6 +12,7 @@ import { ObjetService } from '../services/objet.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddobjetComponent } from '../objet/add/addobjet.component';
 import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
+import { ParametrageObjetComponent } from '../parametrage-objet/parametrage-objet.component';
 
 
 @Component({
@@ -96,5 +97,14 @@ export class MaisonComponent implements OnInit {
       this.objetService.updateObjetPiece(id_maison, id_etage, id_piece, objetPiece).subscribe(objetPiece => {
           
       });
+  }
+  
+  showParametrage(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece)
+  {
+      const modalRef = this.modalService.open(ParametrageObjetComponent, { size: 'lg' });
+      modalRef.componentInstance.objetPiece = objetPiece;
+      modalRef.componentInstance.id_maison = id_maison;
+      modalRef.componentInstance.id_etage = id_etage;
+      modalRef.componentInstance.id_piece = id_piece;
   }
 }

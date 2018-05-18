@@ -14,12 +14,12 @@
                       <ngb-panel title="{{piece.nom}}" id="ngb-panel-0">
                         <ng-template ngbPanelContent>
                           <div class="row">
-                            <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card border-dark card-outline-inverse col-sm-6 col-md-4">
+                            <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card card-outline-inverse col-sm-6 col-md-4">
                                 <div class="card-header">
                                   <div class="m-b-0 text-white">
                                     {{objetpiece.objet.nom}}
                                     <div class="card-actions">
-                                        <a class="btn-minimize"><i class="ti-pencil-alt2"></i></a>
+                                        <a class="btn-minimize" (click)="showParametrage(maison.id, etage.id, piece.id, objetpiece)"><i class="ti-pencil-alt2"></i></a>
                                         <a class="btn-close" (click)="deleteObjet(maison.id, etage.id, piece.id, objetpiece.id)"><i class="ti-trash"></i></a>
                                     </div>
                                   </div>
