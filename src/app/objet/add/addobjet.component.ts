@@ -63,7 +63,12 @@ export class AddobjetComponent implements OnInit {
     this.allObjetService.getOneObjet(formModel.s_objet).subscribe(o => {
       var objetPiece: ObjetPiece = {
         id: null,
-        objet: o
+        objet: o,
+        valeurs_objet: {
+            id: null,
+            val_etat: "0",
+            val_slider: "0"
+        }
       }
 
       this.new_objetPiece = this.objetPieceService.prepareSaveObjetPiece(objetPiece);

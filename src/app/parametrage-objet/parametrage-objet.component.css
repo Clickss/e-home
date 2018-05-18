@@ -73,6 +73,7 @@ input {
   display: flex;
   min-height: 50px;
   overflow: hidden;
+  margin: auto;
 }
 input:focus {
   box-shadow: none;

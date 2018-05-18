@@ -42,20 +42,22 @@
                             </a>
                         </li>
                         
-                        <li>
+                        <li class='nav-devider'>
                             <input class="input-objet" type="text" #newPiece newPiece.value="" placeholder="nom de la pièce" />
                             <i class="mdi mdi-key-plus database-plus" ng-reflect-ng-class="mdi mdi-key-plus" (click)="putPiece(sidebarnavItem.id, sidebarnavSubItem.id, newPiece.value)"></i>
                         </li>
                     </ul>
                 </li>
                 
-                <li>
+                <li class='nav-devider'>
                     <input class="input-objet" type="text" #newEtage newEtage.value="" placeholder="nom d'étage" />
                     <i class="mdi mdi-database-plus database-plus" ng-reflect-ng-class="mdi mdi-database-plus" (click)="putEtage(sidebarnavItem.id, newEtage.value)"></i>
                 </li>
             </ul>
         </li>
-        <input class="input-objet" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
-        <i class="mdi mdi-account-plus database-plus" ng-reflect-ng-class="mdi mdi-account-plus" (click)="putMaison(newMaison.value)"></i>
+        <li class='nav-devider'>
+            <input class="input-objet" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
+            <i class="mdi mdi-account-plus database-plus" ng-reflect-ng-class="mdi mdi-account-plus" (click)="putMaison(newMaison.value)"></i>
+        </li>
     </ul>
 </nav> 
