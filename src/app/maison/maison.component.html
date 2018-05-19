@@ -37,7 +37,7 @@
                                         </label>
                                         <div *ngIf="objetpiece.objet.attribut_objet.slider">
                                           <p>{{objetpiece.objet.attribut_objet.slider.lib_slider}}</p>
-                                          <input type="range" min="{{objetpiece.objet.attribut_objet.slider.min_slider}}" max="{{objetpiece.objet.attribut_objet.slider.max_slider}}" [(ngModel)]="slider[i]" (change)="onSliderChange(maison.id, etage.id, piece.id, objetpiece, $event, i)"/>
+                                          <input type="range" value="{{objetpiece.valeurs_objet.val_slider}}" min="{{objetpiece.objet.attribut_objet.slider.min_slider}}" max="{{objetpiece.objet.attribut_objet.slider.max_slider}}" [(ngModel)]="slider[i]" (change)="onSliderChange(maison.id, etage.id, piece.id, objetpiece, $event, i)"/>
                                           <p class="lead">{{slider[i] ? slider[i] : objetpiece.valeurs_objet.val_slider}}{{objetpiece.objet.attribut_objet.slider.unite_slider}}</p>
                                         </div>
                                     </div>
