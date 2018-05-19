@@ -30,4 +30,35 @@ export class ParametreService {
         // get users from api
         return this.http.get<Parametre[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets/'+id_objet+"/programmations", httpOptions);
     }
+
+    addParametre(id_maison: string, id_etage: string, id_piece: string, id_objet: string, parametre: Parametre): Observable<Parametre>{
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+
+        return this
+            .http
+            .post<Parametre>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/objets/'+id_objet+'/programmations', parametre, httpOptions);
+    }
+
+    deleteParametrage(id_maison: string, id_etage: string, id_piece: string, id_objetpiece: string, id_parametrage: string){
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+
+        return this
+            .http
+            .delete('http://localhost:8000/api/utilisateurs/' + u.id + '/maisons/' + id_maison + '/etages/' + id_etage + '/pieces/' + id_piece + '/objets/' + id_objetpiece + '/programmations/' + id_parametrage, httpOptions)
+    }
+
+    prepareSaveParametrage(parametre: Parametre): Parametre{
+
+        const saveParametre: Parametre = parametre
+    
+        return saveParametre;
+    }
 }
