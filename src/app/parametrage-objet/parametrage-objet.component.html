@@ -5,7 +5,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="objetPieceForm" class="form-material" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="parametrageForm" class="form-material" (ngSubmit)="onSubmit()" novalidate>
       <div class="row">
         <div class="col-sm-4 col-md-3">
           <div class="card card-outline-inverse">
@@ -21,22 +21,22 @@
               <div *ngIf="objetPiece.objet.attribut_objet.etat" class="text-center">
                 <p>État</p>
                 <label class="switch">
-                    <input type="checkbox" [checked]="objetPiece.valeurs_objet.val_etat ? 'checked' : null">
+                    <input type="checkbox" formControlName="f_etat">
                     <span class="slider rounds"></span>
                 </label>
                 <div *ngIf="objetPiece.objet.attribut_objet.slider">
                   <p>{{objetPiece.objet.attribut_objet.slider.lib_slider}}</p>
-                  <input type="range" min="{{objetPiece.objet.attribut_objet.slider.min_slider}}" max="{{objetPiece.objet.attribut_objet.slider.max_slider}}"  (input)="onSliderChange($event)"/>
-                  <p class="lead">{{slider ? slider : objetPiece.valeurs_objet.val_slider}}{{objetPiece.objet.attribut_objet.slider.unite_slider}}</p>
+                  <input type="range" formControlName="f_slider" min="{{objetPiece.objet.attribut_objet.slider.min_slider}}" max="{{objetPiece.objet.attribut_objet.slider.max_slider}}"  (input)="onSliderChange($event)"/>
+                  <p class="lead">{{slider ? slider : 0}}{{objetPiece.objet.attribut_objet.slider.unite_slider}}</p>
                 </div>
                 <div class="row">
                     <div class='col'>
                         <p>Heure</p>
-                        <input class='form-control' type='time' />
+                        <input class='form-control' formControlName="f_heure" type='time' />
                     </div>
                     <div class='col'>
                         <p>Jours</p>
-                        <select class='form-control' multiple>
+                        <select class='form-control' formControlName="f_jours" multiple>
                             <option>Lundi</option>
                             <option>Mardi</option>
                             <option>Mercredi</option>
@@ -51,15 +51,24 @@
           </div>
       </div>
         <div class="text-center mb-3 mt-3">
-            <button type="submit" [disabled]="objetPieceForm.pristine" class="btn btn-outline-dark">Enregistrer</button>
+            <button type="submit" [disabled]="parametrageForm.pristine" class="btn btn-outline-dark">Enregistrer</button>
         </div>
     </form>
     <div class="row">
         <div class="col-12">
-            <div *ngFor="let parametre of parametres" class="card bg-info">
+            <div *ngFor="let parametre of parametres" class="card">
                 <div class="card-body">
-                    <p>État {{ parametre.val_etat ? parametre.objet_piece.objet.attribut_objet.etat.lib_etat_oui : parametre.objet_piece.objet.attribut_objet.etat.lib_etat_non}} à {{parametre.heure}} le(s) {{parametre.jour}}</p>
-                    <p *ngIf="parametre.objet_piece.objet.attribut_objet.slider">{{parametre.objet_piece.objet.attribut_objet.slider.lib_slider}} : {{parametre.val_slider}}{{parametre.objet_piece.objet.attribut_objet.slider.unite_slider}}</p>
+                    <div class="row">
+                        <div class="col-10">
+                            <p>État {{ parametre.val_etat ? parametre.objet_piece.objet.attribut_objet.etat.lib_etat_oui : parametre.objet_piece.objet.attribut_objet.etat.lib_etat_non}} à {{parametre.heure}} le(s) {{parametre.jour}}</p>
+                            <p *ngIf="parametre.objet_piece.objet.attribut_objet.slider">{{parametre.objet_piece.objet.attribut_objet.slider.lib_slider}} : {{parametre.val_slider}}{{parametre.objet_piece.objet.attribut_objet.slider.unite_slider}}</p>
+                        </div>
+                        <div class="col">
+                            <a class="btn-close" (click)="onDeleteParametre(parametre.id)">
+                                <i class="ti-trash"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
