@@ -26,7 +26,7 @@
                 </label>
                 <div *ngIf="objetPiece.objet.attribut_objet.slider">
                   <p>{{objetPiece.objet.attribut_objet.slider.lib_slider}}</p>
-                  <input type="range" formControlName="f_slider" min="{{objetPiece.objet.attribut_objet.slider.min_slider}}" max="{{objetPiece.objet.attribut_objet.slider.max_slider}}"  (input)="onSliderChange($event)"/>
+                  <input type="range" formControlName="f_slider" value="{{objetPiece.objet.attribut_objet.slider.min_slider}}" min="{{objetPiece.objet.attribut_objet.slider.min_slider}}" max="{{objetPiece.objet.attribut_objet.slider.max_slider}}"  (input)="onSliderChange($event)"/>
                   <p class="lead">{{slider ? slider : 0}}{{objetPiece.objet.attribut_objet.slider.unite_slider}}</p>
                 </div>
                 <div class="row">

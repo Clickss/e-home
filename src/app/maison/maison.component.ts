@@ -83,17 +83,25 @@ export class MaisonComponent implements OnInit {
     modalRef.componentInstance.id_piece = id_piece
   }
 
-  onSliderChange(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece, value, idx:number)
+  onSliderChange(objetPiece: ObjetPiece, value)
   {
       
       let val_slider = value.target.value;
-      this.slider[idx] = val_slider;
       objetPiece.valeurs_objet.val_slider = val_slider;
-      this.objetService.updateObjetPiece(id_maison, id_etage, id_piece, objetPiece).subscribe(objetPiece => {
-          
-      });
+      
       
       this.updatePicture(objetPiece);
+  }
+  test(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece, value){
+    let val_slider = value.target.value;
+    objetPiece.valeurs_objet.val_slider = val_slider;
+    this.objetService.updateObjetPiece(id_maison, id_etage, id_piece, objetPiece).subscribe(objetPiece => {
+        
+    });
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 
   onChangeEtat(id_maison: string, id_etage: string, id_piece: string, objetPiece: ObjetPiece, value)
@@ -122,13 +130,13 @@ export class MaisonComponent implements OnInit {
         if (objetPiece.objet.nom == "Lumière" || objetPiece.objet.nom == "Wi-fi"
                 || objetPiece.objet.nom == "Musique" || objetPiece.objet.nom == "Volets") {
             if (objetPiece.valeurs_objet.val_etat) {
-                if (objetPiece.valeurs_objet.val_slider < 26) {
+                if (+objetPiece.valeurs_objet.val_slider < 26) {
                     objetPiece.objet.image = objetPiece.objet.image_min;
-                } else if (objetPiece.valeurs_objet.val_slider < 51 && objetPiece.valeurs_objet.val_slider > 25) {
+                } else if (+objetPiece.valeurs_objet.val_slider < 51 && +objetPiece.valeurs_objet.val_slider > 25) {
                     objetPiece.objet.image = objetPiece.objet.image_med;
-                } else if (objetPiece.valeurs_objet.val_slider < 76 && objetPiece.valeurs_objet.val_slider > 50) {
+                } else if (+objetPiece.valeurs_objet.val_slider < 76 && +objetPiece.valeurs_objet.val_slider > 50) {
                     objetPiece.objet.image = objetPiece.objet.image_on;
-                } else if (objetPiece.valeurs_objet.val_slider > 75) {
+                } else if (+objetPiece.valeurs_objet.val_slider > 75) {
                     objetPiece.objet.image = objetPiece.objet.image_max;
                 }    
             } else {
@@ -136,13 +144,13 @@ export class MaisonComponent implements OnInit {
             }
         } else if (objetPiece.objet.nom == "Chauffage" || objetPiece.objet.nom == "Chaudière - eau") {
             if (objetPiece.valeurs_objet.val_etat) {
-                if (objetPiece.valeurs_objet.val_slider < 1) {
+                if (+objetPiece.valeurs_objet.val_slider < 1) {
                     objetPiece.objet.image = objetPiece.objet.image_min;
-                } else if (objetPiece.valeurs_objet.val_slider < 21 && objetPiece.valeurs_objet.val_slider > 0) {
+                } else if (+objetPiece.valeurs_objet.val_slider < 21 && +objetPiece.valeurs_objet.val_slider > 0) {
                     objetPiece.objet.image = objetPiece.objet.image_med;
-                } else if (objetPiece.valeurs_objet.val_slider < 41 && objetPiece.valeurs_objet.val_slider > 20) {
+                } else if (+objetPiece.valeurs_objet.val_slider < 41 && +objetPiece.valeurs_objet.val_slider > 20) {
                     objetPiece.objet.image = objetPiece.objet.image_on;
-                } else if (objetPiece.valeurs_objet.val_slider > 40) {
+                } else if (+objetPiece.valeurs_objet.val_slider > 40) {
                     objetPiece.objet.image = objetPiece.objet.image_max;
                 }
             } else {

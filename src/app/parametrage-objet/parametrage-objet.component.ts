@@ -48,7 +48,7 @@ export class ParametrageObjetComponent implements OnInit {
     this.parametrageForm = this.fb.group({
       f_etat: ['', Validators.required],
       f_slider: ['', Validators.required],
-      f_heure: ['', Validators.required],
+      f_heure: ['', Validators.requiredTrue],
       f_jours: ['', Validators.required]
     });
   }

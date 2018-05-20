@@ -9,7 +9,7 @@
             <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
               <ngb-panel title="{{etage.nom}}" id="ngb-panel-0">
                 <ng-template ngbPanelContent>
-                  <div *ngFor="let piece of etage.pieces">
+                  <div *ngFor="let piece of etage.pieces; let j = index; trackBy:trackByIndex">
                     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
                       <ngb-panel title="{{piece.nom}}" id="ngb-panel-0">
                         <ng-template ngbPanelContent>
@@ -37,7 +37,7 @@
                                         </label>
                                         <div *ngIf="objetpiece.objet.attribut_objet.slider">
                                           <p>{{objetpiece.objet.attribut_objet.slider.lib_slider}}</p>
-                                          <input type="range" value="{{objetpiece.valeurs_objet.val_slider}}" min="{{objetpiece.objet.attribut_objet.slider.min_slider}}" max="{{objetpiece.objet.attribut_objet.slider.max_slider}}" [(ngModel)]="slider[i]" (change)="onSliderChange(maison.id, etage.id, piece.id, objetpiece, $event, i)"/>
+                                          <input type="range" value="{{objetpiece.valeurs_objet.val_slider}}" min="{{objetpiece.objet.attribut_objet.slider.min_slider}}" max="{{objetpiece.objet.attribut_objet.slider.max_slider}}" (change)="test(maison.id, etage.id, piece.id, objetpiece, $event)" (input)="onSliderChange(objetpiece, $event)"/>
                                           <p class="lead">{{slider[i] ? slider[i] : objetpiece.valeurs_objet.val_slider}}{{objetpiece.objet.attribut_objet.slider.unite_slider}}</p>
                                         </div>
                                     </div>
