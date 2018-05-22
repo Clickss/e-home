@@ -60,4 +60,14 @@ export class MaisonService {
         
         return this.http.post<Maison>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons', maison, httpOptions);
     }
+            
+    deleteMaison(id_maison: string) {        
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        
+        return this.http.delete('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison, httpOptions);
+    }
 }

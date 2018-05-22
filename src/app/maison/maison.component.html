@@ -3,6 +3,8 @@
       <div class="card">
         <div class="card-header"> 
           <h4 class="m-b-0"><span class="lstick"></span>{{maison.nom | uppercase}}</h4>
+                                        <a class="btn-minimize" (click)="editMaison(maison.id)"><i class="ti-pencil-alt2"></i></a>
+                                        <a class="btn-close" (click)="deleteMaison(maison.id)"><i class="ti-trash"></i></a>
         </div>
         <div class="card-body">
           <div *ngFor="let etage of maison.etages">

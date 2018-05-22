@@ -159,6 +159,20 @@ export class MaisonComponent implements OnInit {
         }
     }
 
+    deleteMaison(id_maison: string): void {
+        const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
+        modalRef.componentInstance.titre = "Confirmer la suppression de cette maison ?";
+        modalRef.componentInstance.texte = "Êtes-vous sûr de vouloir supprimer cette maison ?";
+        modalRef.result.then(res => {
+            if(res == true)
+            {
+              this.maisonService.deleteMaison(id_maison).subscribe(data => {
+                  this.ngOnInit();
+              });
+            }
+        });
+    }
+
     deleteEtage(id_maison: string, id_etage: string): void {
         const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
         modalRef.componentInstance.titre = "Confirmer la suppression de cet étage ?";
@@ -180,7 +194,7 @@ export class MaisonComponent implements OnInit {
         modalRef.result.then(res => {
             if(res == true)
             {
-              this.pieceService.deletePiece(id_maison, id_etage, id_etage).subscribe(data => {
+              this.pieceService.deletePiece(id_maison, id_etage, id_piece).subscribe(data => {
                   this.ngOnInit();
               });
             }
