@@ -40,6 +40,7 @@ import { AddobjetComponent } from './objet/add/addobjet.component';
 import { ConfirmationComponent } from './modals/confirmation/confirmation.component';
 import { ParametrageObjetComponent } from './parametrage-objet/parametrage-objet.component';
 import { ParametreService } from './services/parametre.service';
+import { InscriptionComponent } from './inscription/inscription.component';
 
 
 
@@ -65,7 +66,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PieceComponent,
     AddobjetComponent,
     ConfirmationComponent,
-    ParametrageObjetComponent
+    ParametrageObjetComponent,
+    InscriptionComponent
   ],
   entryComponents: [
     AddobjetComponent,

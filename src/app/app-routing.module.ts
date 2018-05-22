@@ -9,9 +9,11 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth_guard';
 import { MaisonComponent } from './maison/maison.component';
 import { EtageComponent } from './etage/etage.component';
+import { InscriptionComponent } from './inscription/inscription.component';
 
 export const Approutes: Routes = [
     { path: 'login', component: LoginComponent },
+    { path: 'inscription', component: InscriptionComponent },
     {
         path: '',
         component: FullComponent,
