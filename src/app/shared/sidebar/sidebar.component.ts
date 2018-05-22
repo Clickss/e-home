@@ -17,6 +17,9 @@ import { PieceService } from '../../services/piece.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationComponent } from '../../modals/confirmation/confirmation.component';
+
 @Component({
   selector: 'ap-sidebar',
   templateUrl: './sidebar.component.html'
@@ -51,7 +54,8 @@ export class SidebarComponent implements OnInit {
     constructor(private modalService: NgbModal, private router: Router,
         private route: ActivatedRoute, private maisonService: MaisonService,
         private userService: UserService, private etageService: EtageService,
-        private pieceService: PieceService) {} 
+        private pieceService: PieceService
+    ) {} 
     
     links_maisons: RouteInfo[] = [];
 
@@ -128,4 +132,18 @@ export class SidebarComponent implements OnInit {
         this.links_maisons.find(o => o.path == '/maisons/'+id_maison).submenu.find(o => o.path == '/maisons/'+id_maison).submenu.push({ path: '/maisons/'+id_maison, title: data.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [], id: data.id });
     });
   }
+
+    deleteEtage(id_maison: string, id_etage: string): void {
+        const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
+        modalRef.componentInstance.titre = "Confirmer la suppression de cet étage ?";
+        modalRef.componentInstance.texte = "Êtes-vous sûr de vouloir supprimer cet étage de votre maison ?";
+        modalRef.result.then(res => {
+            if(res == true)
+            {
+              this.etageService.deleteEtage(id_maison, id_etage).subscribe(data => {
+                  this.ngOnInit();
+              });
+            }
+        });
+    }
 }

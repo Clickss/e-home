@@ -64,6 +64,10 @@ export class MaisonService {
     deleteMaison(id_maison: string) {        
         // add authorization header with jwt token
         let headers = new Headers();
+        headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-Methods', '*');
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Access-Control-Allow-Headers', "*");
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
         
         let u = JSON.parse(localStorage.getItem("currentUser"));

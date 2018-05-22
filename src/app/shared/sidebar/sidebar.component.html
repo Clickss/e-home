@@ -19,10 +19,11 @@
             <!-- Second level menu -->
             <ul class="collapse" *ngIf="sidebarnavItem.submenu.length > -1" [ngClass]="{'in' : showMenu === sidebarnavItem.id }">
                 <li *ngFor="let sidebarnavSubItem of sidebarnavItem.submenu" [class.active]="showSubMenu === sidebarnavSubItem.id" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'active'">
-                    <a [routerLink]="sidebarnavSubItem.submenu.length > 0 ? null : [sidebarnavSubItem.path]" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'router-link-active'" [ngClass]="[sidebarnavSubItem.class]"  *ngIf="!sidebarnavSubItem.extralink;" (click)="addActiveClass(sidebarnavSubItem.id)">
+                    <a [routerLink]="sidebarnavSubItem.submenu.length > 0 ? null : [sidebarnavSubItem.path]" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'router-link-active'" [ngClass]="[sidebarnavSubItem.class]"  *ngIf="!sidebarnavSubItem.extralink;" (click)="addActiveClass(sidebarnavSubItem.id)" class="objet-to-delete">
                         <i [ngClass]="[sidebarnavSubItem.icon]"></i>
                         {{sidebarnavSubItem.title}}
                     </a>
+                    <a class="btn-close objet-to-delete" (click)="deleteEtage(sidebarnavItem.id, sidebarnavSubItem.id)"><i class="ti-trash delete-database-objet"></i></a>
                     <!-- Third level menu -->
                     <ul class="collapse" *ngIf="sidebarnavSubItem.submenu.length > -1" [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.id }">
                         <li *ngFor="let sidebarnavSubsubItem of sidebarnavSubItem.submenu" routerLinkActive="active" [ngClass]="[sidebarnavSubsubItem.class]">
@@ -80,4 +81,4 @@
             </div>
         </div>
     </ul>
-</nav> 
+</nav>

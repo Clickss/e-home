@@ -22,9 +22,18 @@ html, body {
     display: inline-block;
 }
 
+.delete-database-objet:hover {
+    color: blue;
+    cursor: pointer;
+}
+
 .input-objet {
     font-size: 10px;
     width: 150px;
+}
+
+.objet-to-delete {
+    display: inline-block !important;
 }
 
 .ps .ps__scrollbar-y-rail {
