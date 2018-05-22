@@ -22,7 +22,7 @@ export const Approutes: Routes = [
             { path: 'accueil', loadChildren: './starter/starter.module#StarterModule' },
             { path: 'component', loadChildren: './component/component.module#ComponentsModule' },
             { path: 'home', component: HomeComponent },
-            { path: 'maisons/:id', component: MaisonComponent },
+            { path: 'maisons/:id', component: MaisonComponent,  },
             { path: 'etages/:id', component: EtageComponent },
         ],
         canActivate: [AuthGuard]

@@ -74,7 +74,7 @@ export class AddobjetComponent implements OnInit {
       this.new_objetPiece = this.objetPieceService.prepareSaveObjetPiece(objetPiece);
       this.objetPieceService.addObjetPiece(this.id_maison, this.id_etage, this.id_piece, this.new_objetPiece).subscribe(
         data => {
-          this.modalService.close()
+          this.modalService.close(data)
         }
       )
     })   

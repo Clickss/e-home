@@ -80,11 +80,11 @@ export class SidebarComponent implements OnInit {
                                 this.pieceService.getPieces(maison.id, etage.id)
                                     .subscribe(pieces => {
                                         pieces.forEach(piece => {
-                                            links_pieces.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id+'/pieces/'+piece.id, title: piece.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [] });
+                                            links_pieces.push({ path: '/maisons/'+maison.id, title: piece.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [] });
                                         });
                                     });
                                 
-                                links_etages.push({ path: '/maisons/'+maison.id+'/etages/'+etage.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: links_pieces, id: etage.id });
+                                links_etages.push({ path: '/maisons/'+maison.id, title: etage.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: links_pieces, id: etage.id });
                             });
                         });
                     
@@ -111,19 +111,21 @@ export class SidebarComponent implements OnInit {
   
   putMaison(nom_maison: string): void {
       this.maisonService.putMaison(nom_maison).subscribe(data => {
-        this.ngOnInit();
+        this.links_maisons.push({ path: '/maisons/'+data.id, title: data.nom, icon: 'mdi mdi-home-variant', class: '', label: '', labelClass: '', extralink: false, submenu: [], id: data.id });
     });
   }
   
   putEtage(id_maison: string, nom_etage: string): void {
       this.etageService.putEtage(id_maison, nom_etage).subscribe(data => {
-        this.ngOnInit();
+        this.links_maisons.find(o => o.path == '/maisons/'+id_maison).submenu.push({ path: '/maisons/'+id_maison, title: data.nom, icon: 'mdi mdi-stairs', class: '', label: '', labelClass: '', extralink: false, submenu: [], id: data.id });
+        this.router.ngOnDestroy();
+        // this.router.navigate(['/maisons', +id_maison]);
     });
   }
   
   putPiece(id_maison: string, id_etage: string, nom_piece: string): void {
       this.pieceService.putPiece(id_maison, id_etage, nom_piece).subscribe(data => {
-        this.ngOnInit();
+        this.links_maisons.find(o => o.path == '/maisons/'+id_maison).submenu.find(o => o.path == '/maisons/'+id_maison).submenu.push({ path: '/maisons/'+id_maison, title: data.nom, icon: 'mdi mdi-seat-recline-extra', class: '', label: '', labelClass: '', extralink: false, submenu: [], id: data.id });
     });
   }
 }
