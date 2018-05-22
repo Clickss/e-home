@@ -1,0 +1,55 @@
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader" style="display: none;">
+      <div class="loader">
+          <div class="loader__figure"></div>
+          <p class="loader__label">e-Home</p>
+      </div>
+    </div>
+
+    <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
+      <div class="login-box card">
+          <div class="card-body">
+              <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()" novalidate class="form-horizontal form-material">
+                  <h3 class="box-title m-b-20">Sign Up</h3>
+                  <div class="form-group">
+                      <div class="col-xs-12">
+                          <input class="form-control" formControlName="i_nom" type="text" placeholder="Nom">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" formControlName="i_prenom" type="text" placeholder="Prénom">
+                    </div>
+                </div>
+                  <div class="form-group ">
+                      <div class="col-xs-12">
+                          <input class="form-control" formControlName="i_mail" type="text" placeholder="Email">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-xs-12">
+                          <input class="form-control" formControlName="i_pwd" type="password" placeholder="Password">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-xs-12">
+                          <input class="form-control" formControlName="i_cpwd" type="password" placeholder="Confirm Password">
+                      </div>
+                  </div>
+                  
+                  <div class="form-group text-center p-b-20">
+                      <div class="col-xs-12">
+                          <button [disabled]="!inscriptionForm.valid" class="btn btn-info btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit">Inscription</button>
+                      </div>
+                  </div>
+                  <div class="form-group m-b-0">
+                      <div class="col-sm-12 text-center">
+                          Vous avez déjà un compte ? <a [routerLink]="['/login']"  class="text-info m-l-5"><b>Sign In</b></a>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>

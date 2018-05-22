@@ -30,4 +30,20 @@ export class UserService {
         // get users from api
         return this.http.get<User>('http://localhost:8000/api/utilisateurs/'+u.id, httpOptions);
     }
+
+    addUser(user: User): Observable<User> {
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+
+        // get users from api
+        return this.http.post<User>('http://localhost:8000/api/utilisateurs', user, httpOptions);
+    }
+
+    prepareSaveUser(user: User): User{
+
+        const saveUser: User = user
+    
+        return saveUser;
+    }
 }
