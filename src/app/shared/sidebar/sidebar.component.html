@@ -23,7 +23,6 @@
                         <i [ngClass]="[sidebarnavSubItem.icon]"></i>
                         {{sidebarnavSubItem.title}}
                     </a>
-                    <a class="btn-close objet-to-delete" (click)="deleteEtage(sidebarnavItem.id, sidebarnavSubItem.id)"><i class="ti-trash delete-database-objet"></i></a>
                     <!-- Third level menu -->
                     <ul class="collapse" *ngIf="sidebarnavSubItem.submenu.length > -1" [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.id }">
                         <li *ngFor="let sidebarnavSubsubItem of sidebarnavSubItem.submenu" routerLinkActive="active" [ngClass]="[sidebarnavSubsubItem.class]">
@@ -37,10 +36,10 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-12">
                                     <div class="input-group mb-2">
-                                        <input class="form-control" type="text" #newPiece newPiece.value="" placeholder="nom de la pièce" />
+                                        <input class="form-control input-objet" type="text" #newPiece newPiece.value="" placeholder="nom de la pièce" />
                                         <div class="input-group-prepend pointer" (click)="putPiece(sidebarnavItem.id, sidebarnavSubItem.id, newPiece.value)">
                                             <div class="input-group-text bg-secondary">
-                                                <i class="mdi mdi-plus"></i>
+                                                <i class="mdi mdi-plus add-objet-i"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -54,10 +53,10 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-12">
                             <div class="input-group mb-2">
-                                <input class="form-control" type="text" #newEtage newEtage.value="" placeholder="nom d'étage" />
+                                <input class="form-control input-objet" type="text" #newEtage newEtage.value="" placeholder="nom d'étage" />
                                 <div class="input-group-prepend pointer" (click)="putEtage(sidebarnavItem.id, newEtage.value)">
                                     <div class="input-group-text bg-secondary">
-                                        <i class="mdi mdi-plus"></i>
+                                        <i class="mdi mdi-plus add-objet-i"></i>
                                     </div>
                                 </div>
                             </div>
@@ -70,10 +69,10 @@
             <div class="row d-flex align-items-center">
                 <div class="col-12">
                     <div class="input-group mb-2">
-                        <input class="form-control" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
+                        <input class="form-control input-objet" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
                         <div class="input-group-prepend pointer" (click)="putMaison(newMaison.value)">
                             <div class="input-group-text bg-secondary">
-                                <i class="mdi mdi-plus"></i>
+                                <i class="mdi mdi-plus add-objet-i"></i>
                             </div>
                         </div>
                     </div>

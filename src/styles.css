@@ -12,6 +12,10 @@ html, body {
     font-family: 'Ubuntu' !important;
 }
 
+.add-objet-i:hover {
+    color: blue !important;
+}
+
 .database-plus {
     display: inline-block;
 }
@@ -22,14 +26,8 @@ html, body {
     display: inline-block;
 }
 
-.delete-database-objet:hover {
-    color: blue;
-    cursor: pointer;
-}
-
 .input-objet {
-    font-size: 10px;
-    width: 150px;
+    font-size: 12px !important;
 }
 
 .objet-to-delete {

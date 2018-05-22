@@ -5,11 +5,10 @@
                 <div class="m-b-0 text-white">
                     <h4 class="m-b-0">
                         <span class="lstick"></span>{{maison.nom | uppercase}}
-                        <div class="card-actions">
-                            <a class="btn-close" (click)="deleteMaison(maison.id)"><i class="ti-trash delete-database-objet float-right"></i></a>
+                        <div class="card-actions pull-right">
+                            <a class="btn-close" (click)="deleteMaison(maison.id)"><i class="ti-trash"></i></a>
                         </div>
                     </h4>
-                                                <!--<a class="btn-minimize" (click)="editMaison(maison.id)"><i class="ti-pencil-alt2"></i></a>-->
                 </div>
             </div>
         <div class="card-body">
@@ -19,26 +18,37 @@
                 <ng-template ngbPanelTitle>
                   {{etage.nom}}
                   <div class="pull-right">
-                    <a class="btn-minimize" (click)="editEtage(maison.id, etage.id)"><i class="ti-pencil-alt2"></i></a>
+                    <!--<a class="btn-minimize" (click)="editEtage(maison.id, etage.id)"><i class="ti-pencil-alt2"></i></a>-->
                     <a class="btn-close" (click)="deleteEtage(maison.id, etage.id)"><i class="ti-trash"></i></a>
                   </div>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                                        <!--<a class="btn-minimize" (click)="editEtage(maison.id, etage.id)"><i class="ti-pencil-alt2"></i></a>-->
-                                        <a class="btn-close" (click)="deleteEtage(maison.id, etage.id)"><i class="ti-trash delete-database-objet"></i></a>
                   <div *ngFor="let piece of etage.pieces; let j = index; trackBy:trackByIndex">
                     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
                       <ngb-panel id="ngb-panel-0">
                         <ng-template ngbPanelTitle>
                             {{piece.nom}}
                             <div class="pull-right">
-                              <a class="btn-minimize" (click)="editPiece(maison.id, etage.id, piece.id)"><i class="ti-pencil-alt2"></i></a>
+                              <!--<a class="btn-minimize" (click)="editPiece(maison.id, etage.id, piece.id)"><i class="ti-pencil-alt2"></i></a>-->
                               <a class="btn-close" (click)="deletePiece(maison.id, etage.id, piece.id)"><i class="ti-trash"></i></a>
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
-                                        <!--<a class="btn-minimize" (click)="editPiece(maison.id, etage.id, piece.id)"><i class="ti-pencil-alt2"></i></a>-->
-                                        <a class="btn-close" (click)="deletePiece(maison.id, etage.id, piece.id)"><i class="ti-trash delete-database-objet"></i></a>
+                            Sauvegarder la configuration (pas encore codée) :
+                            <div class="input-group">
+                                <input class="form-control" type="text" #newPiece newPiece.value="" placeholder="nom de l'ambiance" />
+                                <div class="input-group-prepend pointer" (click)="putAmbiance(maison.id, etage.id, piece.id)">
+                                    <div class="input-group-text bg-secondary">
+                                        <i class="mdi mdi-plus add-objet-i"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            Choisir une ambiance enregistrée (pas encore codée) :
+                            <div>
+                                <select class="form-control">
+                                    <option>Toto</option>
+                                </select>
+                            </div>
                           <div class="row">
                             <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card card-outline-inverse col-sm-6 col-md-4">
                                 <div class="card-header">
@@ -72,7 +82,7 @@
                             </div>
                             <div class="card bg-light-inverse col-sm-6 col-md-4">
                               <div class="card-body text-center font-weight-bold">
-                                <a class="btn" (click)="addObjetPiece(maison.id, etage.id, piece.id)">
+                                <a class="btn add-objet-i" (click)="addObjetPiece(maison.id, etage.id, piece.id)">
                                   <h3 class="card-title">Ajouter un objet</h3>
                                   <div class="fa-5x">
                                     <i class="fa fa-plus-circle"></i>

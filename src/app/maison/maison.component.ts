@@ -211,4 +211,8 @@ export class MaisonComponent implements OnInit {
             }
         });
     }
+    
+    putAmbiance(id_maison: string, id_etage: string, id_piece: string) : void {
+        alert('aha il se passe rien :p 💥 ▬ι══════ﺤ');
+    }
 }

@@ -17,7 +17,6 @@ import { PieceService } from '../../services/piece.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationComponent } from '../../modals/confirmation/confirmation.component';
 
 @Component({
@@ -133,6 +132,7 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+    // inutile mais je laisse au cas où...
     deleteEtage(id_maison: string, id_etage: string): void {
         const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
         modalRef.componentInstance.titre = "Confirmer la suppression de cet étage ?";
