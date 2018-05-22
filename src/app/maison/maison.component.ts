@@ -158,4 +158,32 @@ export class MaisonComponent implements OnInit {
             }
         }
     }
+
+    deleteEtage(id_maison: string, id_etage: string): void {
+        const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
+        modalRef.componentInstance.titre = "Confirmer la suppression de cet étage ?";
+        modalRef.componentInstance.texte = "Êtes-vous sûr de vouloir supprimer cet étage de votre maison ?";
+        modalRef.result.then(res => {
+            if(res == true)
+            {
+              this.etageService.deleteEtage(id_maison, id_etage).subscribe(data => {
+                  this.ngOnInit();
+              });
+            }
+        });
+    }
+            
+    deletePiece(id_maison: string, id_etage: string, id_piece: string) : void {
+        const modalRef = this.modalService.open(ConfirmationComponent, {size: 'lg'});
+        modalRef.componentInstance.titre = "Confirmer la suppression de cet pièce ?";
+        modalRef.componentInstance.texte = "Êtes-vous sûr de vouloir supprimer cette pièce de votre étage ?";
+        modalRef.result.then(res => {
+            if(res == true)
+            {
+              this.pieceService.deletePiece(id_maison, id_etage, id_etage).subscribe(data => {
+                  this.ngOnInit();
+              });
+            }
+        });
+    }
 }

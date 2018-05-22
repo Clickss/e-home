@@ -58,4 +58,14 @@ export class PieceService {
         
         return this.http.post<Piece>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces', piece, httpOptions);
     }
+            
+    deletePiece(id_maison: string, id_etage: string, id_piece: string) {        
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        
+        return this.http.delete('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece, httpOptions);
+    }
 }

@@ -9,10 +9,14 @@
             <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
               <ngb-panel title="{{etage.nom}}" id="ngb-panel-0">
                 <ng-template ngbPanelContent>
+                                        <a class="btn-minimize" (click)="editEtage(maison.id, etage.id)"><i class="ti-pencil-alt2"></i></a>
+                                        <a class="btn-close" (click)="deleteEtage(maison.id, etage.id)"><i class="ti-trash"></i></a>
                   <div *ngFor="let piece of etage.pieces; let j = index; trackBy:trackByIndex">
                     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="accordion nav-accordion">
                       <ngb-panel title="{{piece.nom}}" id="ngb-panel-0">
                         <ng-template ngbPanelContent>
+                                        <a class="btn-minimize" (click)="editPiece(maison.id, etage.id, piece.id)"><i class="ti-pencil-alt2"></i></a>
+                                        <a class="btn-close" (click)="deletePiece(maison.id, etage.id, piece.id)"><i class="ti-trash"></i></a>
                           <div class="row">
                             <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card card-outline-inverse col-sm-6 col-md-4">
                                 <div class="card-header">

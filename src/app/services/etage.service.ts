@@ -33,7 +33,7 @@ export class EtageService {
         return this.http.get<Etage[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages', httpOptions);
     }
 
-    getEtage(id_etage: string): Observable<Etage> {
+    getEtage(id_maison:string, id_etage: string): Observable<Etage> {
         // add authorization header with jwt token
         let headers = new Headers();
         httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
@@ -41,8 +41,7 @@ export class EtageService {
         let u = JSON.parse(localStorage.getItem("currentUser"));
 
         // get users from api
-        //return this.http.get<Maison>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage, httpOptions);
-        return this.http.get<Etage>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/1/etages/'+id_etage, httpOptions);
+        return this.http.get<Etage>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage, httpOptions);
     }
             
     putEtage(id_maison: string, nom_etage: string): Observable<Etage> {
@@ -57,5 +56,15 @@ export class EtageService {
         etage.nom = nom_etage;        
         
         return this.http.post<Etage>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages', etage, httpOptions);
+    }
+            
+    deleteEtage(id_maison: string, id_etage: string) {
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        
+        return this.http.delete('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage, httpOptions);
     }
 }

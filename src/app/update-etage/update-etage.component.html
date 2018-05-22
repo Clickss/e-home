@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 class="modal-title">Étage : {{etage.nom}} dans la maison : {{maison.nom}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="etageForm" class="form-material" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row">
+          <div class='col-sm-8 col-md-9'>
+            <input class='form-control' formControlName="f_nom_etage" type='text' value="{{etage.nom}}" />
+          </div>
+      </div>
+        <div class="text-center mb-3 mt-3">
+            <button type="submit" [disabled]="etageForm.pristine" class="btn btn-outline-dark">Enregistrer</button>
+        </div>
+    </form>
+  </div>

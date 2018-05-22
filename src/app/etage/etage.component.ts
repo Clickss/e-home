@@ -18,7 +18,7 @@ export class EtageComponent implements OnInit {
   ngOnInit(){
     let id = this.route.snapshot.paramMap.get('id');
 
-    this.etageService.getEtage(id).subscribe(etage => { this.etage$ = etage.nom });
+    //this.etageService.getEtage(id).subscribe(etage => { this.etage$ = etage.nom });
 
     console.log("lol")
   }
