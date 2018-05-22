@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inscription',
@@ -13,6 +14,7 @@ export class InscriptionComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private userService: UserService,
+    private router: Router,
   ) {
     this.createForm();
    }
@@ -38,7 +40,7 @@ export class InscriptionComponent implements OnInit {
     this.new_utilisateur = this.userService.prepareSaveUser(utilisateur);
     this.userService.addUser(this.new_utilisateur).subscribe(
       data => {
-        console.log(data)
+        this.router.navigate(['/login']);
       }
     )
   }

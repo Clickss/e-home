@@ -72,7 +72,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   entryComponents: [
     AddobjetComponent,
     ConfirmationComponent,
-    ParametrageObjetComponent
+    ParametrageObjetComponent,
+    MaisonComponent
   ],
   imports: [
     CommonModule,

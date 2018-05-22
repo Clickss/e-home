@@ -48,8 +48,7 @@ export class MaisonComponent implements OnInit {
                   pieces.forEach(piece => {
                     this.objetService.getObjets(maison.id, etage.id, piece.id).subscribe(objetsPieces => {
                       piece.objetpiece = objetsPieces;
-                      objetsPieces.forEach(objetPiece => {
-                        
+                      objetsPieces.forEach(objetPiece => {                        
                         this.updatePicture(objetPiece);
                       })
                     })
@@ -81,6 +80,18 @@ export class MaisonComponent implements OnInit {
     modalRef.componentInstance.id_maison = id_maison
     modalRef.componentInstance.id_etage = id_etage
     modalRef.componentInstance.id_piece = id_piece
+    modalRef.result.then(res => {
+        var etage;
+        this.etageService.getEtage(id_maison, id_etage).subscribe(data => {
+            etage = data;
+            var piece;
+            this.pieceService.getPiece(id_maison, data.id, id_piece).subscribe(data2 => {
+                piece = data2;
+                this.maison.etages.find(e => e.id == etage.id).pieces.find(p => p.id == piece.id).objetpiece.push(res);
+                this.updatePicture(res);
+            })
+        })
+    });
   }
 
   onSliderChange(objetPiece: ObjetPiece, value)

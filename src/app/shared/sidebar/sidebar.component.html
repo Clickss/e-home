@@ -4,37 +4,27 @@
         <li *ngFor="let maison of maisons">
             <p>{{maison.nom}}</p>
         </li>
-
-        <li class="user-profile" [class.active]="showMenu === 'user'">
-          <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" (click)="addExpandClass('user')" aria-expanded="false"><img src="assets/images/users/profile.png" alt="user" /><span class="hide-menu">{{prenom}} {{nom}}</span></a>
-          <ul aria-expanded="false" class="collapse" [class.in]="showMenu === 'user'">
-            <li><a href="javascript:void()">My Profile </a></li>
-            <li><a href="javascript:void()">My Balance</a></li>
-            <li><a href="javascript:void()">Inbox</a></li>
-            <li><a href="javascript:void()">Account Setting</a></li>
-            <li><a [routerLink]="['/login']">Logout</a></li>
-          </ul>  
-        </li>
+        
         <li class="nav-devider"></li>
         <div class="nav-small-cap">Mes logements</div>
         <!-- First level menu -->
-        <li [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems" [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'" >
+        <li [class.active]="showMenu === sidebarnavItem.id" *ngFor="let sidebarnavItem of sidebarnavItems" [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'" >
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
-            <a [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null" [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;" (click)="addExpandClass(sidebarnavItem.title)">
+            <a [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null" [ngClass]="[sidebarnavItem.class]" *ngIf="!sidebarnavItem.extralink;" (click)="addExpandClass(sidebarnavItem.id)">
                 <i [ngClass]="[sidebarnavItem.icon]"></i>
                 <span class="hide-menu">{{sidebarnavItem.title}}
                 <span *ngIf="sidebarnavItem.label != '' " [ngClass]="[sidebarnavItem.labelClass]">{{sidebarnavItem.label}}</span>
                 </span>    
             </a>
             <!-- Second level menu -->
-            <ul class="collapse" *ngIf="sidebarnavItem.submenu.length > -1" [ngClass]="{'in' : showMenu === sidebarnavItem.title }">
-                <li *ngFor="let sidebarnavSubItem of sidebarnavItem.submenu" [class.active]="showSubMenu === sidebarnavSubItem.title" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'active'">
-                    <a [routerLink]="sidebarnavSubItem.submenu.length > 0 ? null : [sidebarnavSubItem.path]" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'router-link-active'" [ngClass]="[sidebarnavSubItem.class]"  *ngIf="!sidebarnavSubItem.extralink;" (click)="addActiveClass(sidebarnavSubItem.title)">
+            <ul class="collapse" *ngIf="sidebarnavItem.submenu.length > -1" [ngClass]="{'in' : showMenu === sidebarnavItem.id }">
+                <li *ngFor="let sidebarnavSubItem of sidebarnavItem.submenu" [class.active]="showSubMenu === sidebarnavSubItem.id" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'active'">
+                    <a [routerLink]="sidebarnavSubItem.submenu.length > 0 ? null : [sidebarnavSubItem.path]" [routerLinkActive]="sidebarnavSubItem.submenu.length > 0 ? '' : 'router-link-active'" [ngClass]="[sidebarnavSubItem.class]"  *ngIf="!sidebarnavSubItem.extralink;" (click)="addActiveClass(sidebarnavSubItem.id)">
                         <i [ngClass]="[sidebarnavSubItem.icon]"></i>
                         {{sidebarnavSubItem.title}}
                     </a>
                     <!-- Third level menu -->
-                    <ul class="collapse" *ngIf="sidebarnavSubItem.submenu.length > -1" [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.title }">
+                    <ul class="collapse" *ngIf="sidebarnavSubItem.submenu.length > -1" [ngClass]="{'in' : showSubMenu === sidebarnavSubItem.id }">
                         <li *ngFor="let sidebarnavSubsubItem of sidebarnavSubItem.submenu" routerLinkActive="active" [ngClass]="[sidebarnavSubsubItem.class]">
                             <a [routerLink]="[sidebarnavSubsubItem.path]" *ngIf="!sidebarnavSubsubItem.extralink;" [routerLinkActive]="sidebarnavSubsubItem.submenu.length > 0 ? '' : 'router-link-active'">
                                 <i [ngClass]="[sidebarnavSubsubItem.icon]"></i>
@@ -42,22 +32,52 @@
                             </a>
                         </li>
                         
-                        <li class='nav-devider'>
-                            <input class="input-objet" type="text" #newPiece newPiece.value="" placeholder="nom de la pièce" />
-                            <i class="mdi mdi-key-plus database-plus" ng-reflect-ng-class="mdi mdi-key-plus" (click)="putPiece(sidebarnavItem.id, sidebarnavSubItem.id, newPiece.value)"></i>
-                        </li>
+                        <div class="nav-small-cap">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-12">
+                                    <div class="input-group mb-2">
+                                        <input class="form-control" type="text" #newPiece newPiece.value="" placeholder="nom de la pièce" />
+                                        <div class="input-group-prepend pointer" (click)="putPiece(sidebarnavItem.id, sidebarnavSubItem.id, newPiece.value)">
+                                            <div class="input-group-text bg-secondary">
+                                                <i class="mdi mdi-plus"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </ul>
                 </li>
                 
-                <li class='nav-devider'>
-                    <input class="input-objet" type="text" #newEtage newEtage.value="" placeholder="nom d'étage" />
-                    <i class="mdi mdi-database-plus database-plus" ng-reflect-ng-class="mdi mdi-database-plus" (click)="putEtage(sidebarnavItem.id, newEtage.value)"></i>
-                </li>
+                <div class="nav-small-cap">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12">
+                            <div class="input-group mb-2">
+                                <input class="form-control" type="text" #newEtage newEtage.value="" placeholder="nom d'étage" />
+                                <div class="input-group-prepend pointer" (click)="putEtage(sidebarnavItem.id, newEtage.value)">
+                                    <div class="input-group-text bg-secondary">
+                                        <i class="mdi mdi-plus"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ul>
         </li>
-        <li class='nav-devider'>
-            <input class="input-objet" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
-            <i class="mdi mdi-account-plus database-plus" ng-reflect-ng-class="mdi mdi-account-plus" (click)="putMaison(newMaison.value)"></i>
-        </li>
+        <div class="nav-small-cap">
+            <div class="row d-flex align-items-center">
+                <div class="col-12">
+                    <div class="input-group mb-2">
+                        <input class="form-control" type="text" #newMaison newMaison.value="" placeholder="nom de maison" />
+                        <div class="input-group-prepend pointer" (click)="putMaison(newMaison.value)">
+                            <div class="input-group-text bg-secondary">
+                                <i class="mdi mdi-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ul>
 </nav> 
