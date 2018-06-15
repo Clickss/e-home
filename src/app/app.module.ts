@@ -41,6 +41,7 @@ import { ConfirmationComponent } from './modals/confirmation/confirmation.compon
 import { ParametrageObjetComponent } from './parametrage-objet/parametrage-objet.component';
 import { ParametreService } from './services/parametre.service';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { AmbianceService } from './services/ambiance.service';
 
 
 
@@ -97,6 +98,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ObjetService,
     AllObjetService,
     ParametreService,
+    AmbianceService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

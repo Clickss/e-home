@@ -3,16 +3,19 @@ import { ActivatedRoute, Router, ParamMap, NavigationEnd, Event } from '@angular
 import { MaisonService } from '../services/maison.service';
 import { switchMap } from 'rxjs/operator/switchMap';
 import { Maison } from '../models/maison';
+import { Ambiance } from '../models/ambiance';
 import { ObjetPiece } from '../models/objetpiece';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { EtageService } from '../services/etage.service';
 import { PieceService } from '../services/piece.service';
 import { ObjetService } from '../services/objet.service';
+import { AmbianceService } from '../services/ambiance.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddobjetComponent } from '../objet/add/addobjet.component';
 import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
 import { ParametrageObjetComponent } from '../parametrage-objet/parametrage-objet.component';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -29,13 +32,18 @@ export class MaisonComponent implements OnInit {
     private etageService: EtageService, 
     private pieceService: PieceService,
     private objetService: ObjetService,
-    private modalService: NgbModal
+    private ambianceService: AmbianceService,
+    private modalService: NgbModal,
+    private fb:FormBuilder
   ) {
     this.ngOnInit();
+    this.createForm();
   }
 
   maison: Maison = {id:null, nom:null, etages: []};
   slider: number[] = [];
+  ambianceForm: FormGroup;
+  new_ambiance: Ambiance;
 
   ngOnInit(){
     this.route.paramMap
@@ -213,6 +221,31 @@ export class MaisonComponent implements OnInit {
     }
     
     putAmbiance(id_maison: string, id_etage: string, id_piece: string) : void {
-        alert('aha il se passe rien :p 💥 ▬ι══════ﺤ');
+        const formModel = this.ambianceForm.value;
+
+        this.pieceService.getPiece(id_maison, id_etage, id_piece).subscribe(p => {
+            this.objetService.getObjets(id_maison, id_etage, id_piece).subscribe(o => {
+                var ambiance: Ambiance = {
+                    id: null,
+                    nom: this.ambianceForm.value.s_nom,
+                    piece: p,
+                    ambiance: JSON.stringify(o)
+                }
+                
+                this.new_ambiance = this.ambianceService.prepareSaveAmbiance(ambiance);
+                this.ambianceService.putAmbiance(id_maison, id_etage, id_piece, this.new_ambiance).subscribe(
+                  data => {
+                      var pp = this.maison.etages.find(e => e.id == id_etage).pieces.find(p => p.id == id_piece)
+                    pp.ambiances.push(data);
+                  }
+                ) 
+            })
+        });
+    }
+    
+    createForm(){
+        this.ambianceForm = this.fb.group({
+          s_nom: ['', Validators.required]
+        });
     }
 }

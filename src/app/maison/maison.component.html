@@ -34,20 +34,29 @@
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
-                            Sauvegarder la configuration (pas encore codée) :
-                            <div class="input-group">
-                                <input class="form-control" type="text" #newPiece newPiece.value="" placeholder="nom de l'ambiance" />
-                                <div class="input-group-prepend pointer" (click)="putAmbiance(maison.id, etage.id, piece.id)">
-                                    <div class="input-group-text bg-secondary">
-                                        <i class="mdi mdi-plus add-objet-i"></i>
+                            Sauvegarder la configuration :
+                            <form [formGroup]="ambianceForm" (ngSubmit)="putAmbiance(maison.id, etage.id, piece.id)" novalidate>
+                                <div class="row">
+                                    <div class='col-sm-6'>
+                                        <div class="input-group">
+                                            <input class="form-control" formControlName="s_nom" type="text" placeholder="nom de l'ambiance" />
+                                            <button type='submit' class="input-group-prepend pointer btn">
+                                                <i class="mdi mdi-plus add-objet-i"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            Choisir une ambiance enregistrée (pas encore codée) :
+                            </form>
+                            
+                            Choisir une ambiance enregistrée :
                             <div>
-                                <select class="form-control">
-                                    <option>Toto</option>
-                                </select>
+                                <div class='col-sm-6'>
+                                    <div class="input-group">
+                                        <select class="form-control" >
+                                                <option *ngFor="let ambiance of piece.ambiances;" value="{{ambiance.id}}">{{ambiance.nom}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                           <div class="row">
                             <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card card-outline-inverse col-sm-6 col-md-4">
