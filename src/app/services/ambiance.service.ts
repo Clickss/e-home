@@ -45,4 +45,47 @@ export class AmbianceService {
     
         return saveAmbiance;
     }
+
+    getAmbiance(id_maison: string, id_etage: string, id_piece: string, id_ambiance: string): Observable<Ambiance> {
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+
+        return this.http.get<Ambiance>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/ambiances/'+id_ambiance, httpOptions);
+    }
+
+    getAmbiances(id_maison: string, id_etage: string, id_piece: string): Observable<Ambiance[]> {
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+
+        return this.http.get<Ambiance[]>('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/ambiances', httpOptions);
+    }
+
+    updateAmbiance(id_maison: string, id_etage: string, id_piece: string, ambiance: Ambiance): Observable<Ambiance> {
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        console.log(JSON.stringify(ambiance));
+        
+        return this
+            .http
+            .post<Ambiance>('http://localhost:8000/api/utilisateurs/' + u.id + '/maisons/' + id_maison + '/etages/' + id_etage + '/pieces/' + id_piece + '/ambiances/' + ambiance.id, ambiance, httpOptions);
+    }
+
+    deleteAmbiance(id_maison: string, id_etage: string, id_piece: string, id_ambiance: string){
+        // add authorization header with jwt token
+        let headers = new Headers();
+        httpOptions.headers.append('Authorization', 'Bearer ' + this.authenticationService.token)
+        
+        let u = JSON.parse(localStorage.getItem("currentUser"));
+        
+        return this.http.delete('http://localhost:8000/api/utilisateurs/'+u.id+'/maisons/'+id_maison+'/etages/'+id_etage+'/pieces/'+id_piece+'/ambiances/'+id_ambiance, httpOptions);
+    }
 }
