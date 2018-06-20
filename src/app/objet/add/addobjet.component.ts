@@ -32,7 +32,7 @@ export class AddobjetComponent implements OnInit {
   id_maison: string;
   id_etage: string;
   id_piece: string;
-  piece: Piece = {id:null, nom:null, objetpiece: []};
+  piece: Piece = {id:null, nom:null, objetpiece: [], ambiances: []};
   objets: Objet[];
   objetForm: FormGroup;
   new_objetPiece: ObjetPiece;
@@ -68,7 +68,8 @@ export class AddobjetComponent implements OnInit {
             id: null,
             val_etat: "0",
             val_slider: "0"
-        }
+        },
+        programmations: null
       }
 
       this.new_objetPiece = this.objetPieceService.prepareSaveObjetPiece(objetPiece);

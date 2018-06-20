@@ -1,7 +1,9 @@
 import * as $ from 'jquery';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CommonModule, LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
@@ -41,6 +43,9 @@ import { ConfirmationComponent } from './modals/confirmation/confirmation.compon
 import { ParametrageObjetComponent } from './parametrage-objet/parametrage-objet.component';
 import { ParametreService } from './services/parametre.service';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { AmbianceService } from './services/ambiance.service';
+
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -85,7 +90,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(Approutes, { useHash: false }),  
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthGuard,
@@ -97,6 +104,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ObjetService,
     AllObjetService,
     ParametreService,
+    AmbianceService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -34,21 +34,34 @@
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
-                            Sauvegarder la configuration (pas encore codée) :
-                            <div class="input-group">
-                                <input class="form-control" type="text" #newPiece newPiece.value="" placeholder="nom de l'ambiance" />
-                                <div class="input-group-prepend pointer" (click)="putAmbiance(maison.id, etage.id, piece.id)">
-                                    <div class="input-group-text bg-secondary">
+                          <div class="row">
+                            <div class="col-sm-6 mb-2">
+                              Sauvegarder la configuration :
+                              <form [formGroup]="ambianceForm" (ngSubmit)="putAmbiance(maison.id, etage.id, piece.id)" novalidate>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="s_nom" type="text" placeholder="nom de l'ambiance" />
+                                    <button type='submit' class="input-group-prepend pointer btn btn-primary">
                                         <i class="mdi mdi-plus add-objet-i"></i>
-                                    </div>
+                                    </button>
                                 </div>
+                              </form>
                             </div>
-                            Choisir une ambiance enregistrée (pas encore codée) :
-                            <div>
-                                <select class="form-control">
-                                    <option>Toto</option>
-                                </select>
+                            
+                            <div class="col-sm-6">
+                              Choisir une ambiance enregistrée :
+                              <div>
+                                <div class="input-group">
+                                    <select class="form-control" #a (change)="setAmbiance(maison.id, etage.id, piece.id, a.value)" >
+                                      <option value="0"></option>
+                                      <option *ngFor="let ambiance of piece.ambiances;" value="{{ambiance.id}}">{{ambiance.nom}}</option>
+                                    </select>
+                                    <button type='button' class="input-group-prepend pointer btn btn-primary" (click)="deleteAmbiance(maison.id, etage.id, piece.id, a.value)">
+                                        <i class="mdi mdi-delete add-objet-i"></i>
+                                    </button>
+                                </div>
+                              </div>
                             </div>
+                          </div>
                           <div class="row">
                             <div *ngFor="let objetpiece of piece.objetpiece; let i = index; trackBy:trackByIndex" class="card card-outline-inverse col-sm-6 col-md-4">
                                 <div class="card-header">
